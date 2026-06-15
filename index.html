@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tryjax Construction</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="Images/Favicon.png">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.0/model-viewer.min.js"></script>
+    <script src="theme.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <span class="icon">🌙</span>
+                            <span class="label">Dark</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Building Dreams into Reality</h1>
+            <p>Quality construction for franchises.</p>
+            <a href="contact.html" class="btn">Get a Quote</a>
+        </div>
+    </section>
+
+    <section id="model-viewer" class="section">
+        <div class="container">
+            <h2>Our Designs Come to Life</h2>
+            <p>Explore our latest building designs in 3D. Interact with the model to see the interior layout and architectural details.</p>
+            <model-viewer
+                alt="Tryjax Construction Interior Building Model"
+                src="Models/Cube.glb"
+                environment-image="HDR/tree_lined_driveway_1k.hdr"
+                shadow-intensity="1"
+                camera-controls
+                touch-action="pan-y"
+                auto-rotate
+                camera-orbit="70deg 60deg 120%"
+                field-of-view="45deg"
+                min-camera-orbit="auto auto 50%"
+                max-camera-orbit="auto auto 200%"
+                exposure="0.8"
+                shadow-softness="0.5">
+            </model-viewer>
+            <h2>Fitting Square Pegs in Round Holes</h2>
+            <p>Something about putting franchises in odd spaces and using 3d scans to do that.</p>
+        </div>
+    </section>
+
+    <!-- Alternating Image-Text Section -->
+    <section class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">What We Do</h2>
+            
+            <!-- Row 1: Image on Left -->
+            <div class="content-row">
+                <div class="content-image">
+                    <img src="Images/hero-bg.jpg" alt="Commercial Construction Project">
+                </div>
+                <div class="content-text">
+                    <h2>Modern Commercial Spaces</h2>
+                    <p>We specialize in creating modern commercial spaces that blend functionality with aesthetic appeal. Our team works closely with clients to design environments that boost productivity and leave a lasting impression on visitors.</p>
+                </div>
+            </div>
+
+            <!-- Row 2: Image on Right -->
+            <div class="content-row reverse">
+                <div class="content-image">
+                    <img src="Images/Logo.jpeg" alt="Residential Development Project">
+                </div>
+                <div class="content-text">
+                    <h2>National Development</h2>
+                    <p>Our residential projects are built with attention to detail and a deep understanding of what makes a house feel like home. From initial planning to final touches, we ensure every element reflects our commitment to quality craftsmanship.</p>
+                </div>
+            </div>
+
+            <!-- Row 3: Image on Left -->
+            <div class="content-row">
+                <div class="content-image">
+                    <img src="Images/hero-bg.jpg" alt="Renovation and Remodeling Project">
+                </div>
+                <div class="content-text">
+                    <h2>Renovation and Remodeling</h2>
+                    <p>Transform a existing space with our renovation services. Whether it's updating a storefront or completely remodeling an interior, we bring fresh ideas and expert execution to every project, breathing new life into familiar spaces.</p>
+                </div>
+            </div>
+
+            <!-- Row 4: Image on Right -->
+            <div class="content-row reverse">
+                <div class="content-image">
+                    <img src="Images/Logo.jpeg" alt="Sustainable Building Practices">
+                </div>
+                <div class="content-text">
+                    <h2>Sustainable Building Practices</h2>
+                    <p>We are committed to sustainable construction methods that minimize environmental impact. By using eco-friendly materials and energy-efficient designs, we help our clients build responsibly while reducing long-term operational costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Tryjax Construction. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
