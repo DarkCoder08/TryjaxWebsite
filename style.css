@@ -344,6 +344,134 @@ h2 {
     opacity: 1;
 }
 
+/* ===== Partners Logos Section ===== */
+
+.partners-section {
+    padding: 40px 0;
+    background-color: var(--bg-secondary);
+    overflow: hidden;
+}
+
+.partners-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Track wrapper - full width overflow container with edge fade */
+.partners-track-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    /* Fade edges for smooth visual transition */
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+    );
+}
+
+/* Animated track - contains two identical sets of logos */
+.partners-track {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    width: max-content;
+    animation: partnersScroll 30s linear infinite;
+}
+
+.partners-track:hover {
+    animation-play-state: paused;
+}
+
+/* Individual logo item */
+.partner-logo {
+    flex-shrink: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 180px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-logo:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-card-hover);
+}
+
+.partner-logo img {
+    max-width: 100%;
+    max-height: 60px;
+    object-fit: contain;
+    opacity: 0.6;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    filter: grayscale(100%);
+}
+
+.partner-logo:hover img {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+/* Seamless infinite scroll animation */
+@keyframes partnersScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .partners-track {
+        animation: none;
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .partners-track-wrapper {
+        mask-image: none;
+        -webkit-mask-image: none;
+        padding: 20px 0;
+    }
+}
+
+/* Responsive adjustments for partners section */
+@media (max-width: 768px) {
+    .partners-track {
+        gap: 20px;
+        animation-duration: 20s;
+    }
+
+    .partner-logo {
+        width: 140px;
+        height: 80px;
+        padding: 10px 15px;
+    }
+
+    .partner-logo img {
+        max-height: 45px;
+    }
+}
+
 /* 3D Model Viewer Section */
 #model-viewer {
     text-align: center;

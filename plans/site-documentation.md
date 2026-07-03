@@ -56,7 +56,8 @@ TryjaxWebsite/
 | 2 | Hero | `#home.hero` | Full-width background image (`hero-bg.jpg`) with overlay. Contains H1 tagline, subtitle paragraph, and CTA `.btn` linking to `contact.html` |
 | 3 | 3D Model Viewer | `#model-viewer.section` | Contains a `<model-viewer>` element displaying `Models/Cube.glb` with HDR environment lighting. Features camera controls, auto-rotate, and custom camera orbit |
 | 4 | What We Do | `.section.bg-light` | Alternating image-text layout using `.content-row` blocks. Four rows total, alternating left-image and right-image (via `.reverse` class). Covers: Modern Commercial Spaces, National Development, Renovation and Remodeling, Sustainable Building Practices |
-| 5 | Footer | `<footer>` | Copyright text |
+| 5 | Partners Logos | `#partners.section.partners-section` | Infinite horizontal scrolling carousel of partner logos using pure CSS animation. Contains heading, subtitle, and a `.partners-track-wrapper` with edge-fade mask. Two identical sets of 8 `.partner-logo` items create a seamless loop via `translateX(-50%)` keyframe animation. Pauses on hover. Respects `prefers-reduced-motion` |
+| 6 | Footer | `<footer>` | Copyright text |
 
 **Special Notes:**
 - This is the only page that loads the `model-viewer` ES module from Google CDN
@@ -164,7 +165,8 @@ Single stylesheet for the entire site. No CSS preprocessor or module bundling.
 6. Services grid + cards
 7. Team grid + cards
 8. Clients grid + cards
-9. 3D Model Viewer styles
+9. Partners logos section (with `@keyframes partnersScroll`)
+10. 3D Model Viewer styles
 10. Contact Form styles
 11. Footer styles
 12. Theme Toggle button styles
@@ -239,6 +241,10 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.services-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` |
 | `.team-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))` |
 | `.clients-grid` | Multi-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))` |
+| `.partners-section` | Partners logos section | `background-color: var(--bg-secondary)`, `overflow: hidden` |
+| `.partners-track-wrapper` | Full-width overflow container | `mask-image` for edge fade, hides logos entering/exiting |
+| `.partners-track` | Animated flex row | `display: flex`, `gap: 40px`, `width: max-content`, infinite scroll via `@keyframes partnersScroll` |
+| `.partner-logo` | Individual logo card | Fixed-size card with grayscale filter, hover scale + color restore |
 | `.form-container` | Centered form wrapper | `max-width: 800px`, centered, card-style with shadow |
 | `.form-row` | Two-column form layout | `grid-template-columns: 1fr 1fr`, `gap: 20px` |
 | `.form-group` | Single form field | Flexbox column, `margin-bottom: 20px` |
@@ -270,6 +276,9 @@ Single breakpoint at **768px** (`max-width`):
 | `.content-image img` | Height reduced from `350px` to `250px` |
 | `.content-text h2` | Center-aligned, font size reduced from `28px` to `24px` |
 | `.content-text p` | Center-aligned |
+| `.partners-track` | Reduced gap from `40px` to `20px`, faster animation (`20s`) |
+| `.partner-logo` | Reduced size from `180px×100px` to `140px×80px`, reduced padding |
+| `.partner-logo img` | Max-height reduced from `60px` to `45px` |
 
 ---
 
@@ -436,7 +445,76 @@ Use the `.content-row` pattern from [`index.html`](index.html:72):
 
 ---
 
-## 10. Site Architecture Diagram
+## 10. Partners Logos Scrolling Section
+
+### 10.1 Overview
+
+A pure CSS infinite horizontal scrolling carousel showcasing partner logos. Located on the home page ([`index.html`](index.html)) between the "What We Do" section and the footer.
+
+### 10.2 Animation Mechanism
+
+The scroll uses a seamless loop technique:
+- The `.partners-track` contains **two identical sets** of logos
+- CSS `@keyframes partnersScroll` animates `translateX` from `0` to `-50%`
+- At `-50%`, the second set of logos occupies exactly where the first set started
+- Animation resets to `0` instantly (visually seamless) and repeats
+
+| Property | Value |
+|----------|-------|
+| Animation duration | `30s` (desktop), `20s` (mobile) |
+| Timing function | `linear` (constant speed) |
+| Iteration | `infinite` |
+| Hover behavior | `animation-play-state: paused` |
+
+### 10.3 Edge Fade Effect
+
+The `.partners-track-wrapper` uses CSS `mask-image` to create a smooth fade at both edges:
+- `transparent 0%` → `black 10%` → `black 90%` → `transparent 100%`
+- Both standard (`mask-image`) and WebKit (`-webkit-mask-image`) prefixes included
+
+### 10.4 Logo Styling
+
+| State | Style |
+|-------|-------|
+| Default | `filter: grayscale(100%)`, `opacity: 0.6` |
+| Hover | `filter: grayscale(0%)`, `opacity: 1`, parent scales to `1.05x` |
+
+### 10.5 Accessibility
+
+| Feature | Implementation |
+|---------|---------------|
+| Reduced motion | `@media (prefers-reduced-motion: reduce)` disables animation, falls back to static flex-wrap |
+| Screen readers | Semantic `<h2>` heading + descriptive subtitle + `alt` on each logo |
+| Hover pause | Animation pauses on track hover for examination |
+
+### 10.6 Adding/Removing Partner Logos
+
+To modify the list of partners:
+
+1. Edit **both** sets of `.partner-logo` items in the track (original and duplicate must match)
+2. Each logo item follows this pattern:
+   ```html
+   <div class="partner-logo">
+       <img src="Images/LOGO-FILE.png" alt="Partner Name">
+   </div>
+   ```
+3. The count of logos in each set **must be identical** for the seamless loop to work
+4. Update `alt` attributes with actual partner names for accessibility
+
+### 10.7 Adjusting Scroll Speed
+
+Edit the animation duration in `style.css`:
+```css
+.partners-track {
+    animation: partnersScroll 30s linear infinite;  /* Change 30s to desired duration */
+}
+```
+
+More logos or wider logos = increase duration. Fewer logos = decrease duration.
+
+---
+
+## 11. Site Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -488,7 +566,7 @@ flowchart TD
 
 ---
 
-## 11. Quick Reference — All CSS Classes
+## 12. Quick Reference — All CSS Classes
 
 | Class | Selector | Purpose |
 |-------|----------|---------|
@@ -505,6 +583,10 @@ flowchart TD
 | `team-card` | `.team-card` | Card with circular avatar, name, role, bio |
 | `clients-grid` | `.clients-grid` | Auto-fit grid for client logos |
 | `client-card` | `.client-card` | Square card with hover lift effect |
+| `partners-section` | `.partners-section` | Partners logos scrolling carousel section |
+| `partners-track-wrapper` | `.partners-track-wrapper` | Overflow container with edge-fade mask |
+| `partners-track` | `.partners-track` | Animated flex row with infinite scroll keyframes |
+| `partner-logo` | `.partner-logo` | Individual logo card with grayscale filter and hover effects |
 | `theme-toggle` | `.theme-toggle` | Dark/light mode toggle button |
 | `form-container` | `.form-container` | Centered card-style form wrapper |
 | `form-row` | `.form-row` | Two-column form field layout |
