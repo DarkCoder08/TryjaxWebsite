@@ -472,6 +472,73 @@ h2 {
     }
 }
 
+/* ===== Partner Showcase Section ===== */
+
+.partner-showcase {
+    text-align: center;
+}
+
+.partner-showcase img {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* IRIS logo theme switching - two stacked images, visibility toggled by theme */
+.iris-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* Light mode: show inverted logo, hide transparent */
+.iris-logo-light {
+    display: block;
+}
+
+.iris-logo-dark {
+    display: none;
+}
+
+[data-theme="dark"] .iris-logo-light {
+    display: none;
+}
+
+[data-theme="dark"] .iris-logo-dark {
+    display: block;
+}
+
+.partner-showcase h2 {
+    margin-bottom: 20px;
+}
+
+.partner-showcase p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+}
+
+/* ===== Partner Showcase Section ===== */
+
+.partner-showcase {
+    text-align: center;
+}
+
+.partner-showcase img {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.partner-showcase h2 {
+    margin-bottom: 20px;
+}
+
+.partner-showcase p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-secondary);
+}
+
 /* 3D Model Viewer Section */
 #model-viewer {
     text-align: center;

@@ -10,7 +10,7 @@
 |----------|-------|
 | **Site Name** | Tryjax Construction |
 | **Type** | Static multi-page website (no backend, no framework) |
-| **Pages** | 3 (`index.html`, `about.html`, `contact.html`) |
+| **Pages** | 4 (`index.html`, `about.html`, `scans.html`, `contact.html`) |
 | **Stylesheet** | 1 shared file (`style.css`) |
 | **JavaScript** | 1 shared file (`theme.js`) |
 | **External Dependencies** | Google Model Viewer (`model-viewer` v4.3.0) — loaded via CDN as ES module |
@@ -21,8 +21,9 @@
 
 ```
 TryjaxWebsite/
-├── index.html          # Home page (hero, 3D model viewer, alternating content rows)
+├── index.html          # Home page (hero, 3D model viewer, alternating content rows, partners carousel)
 ├── about.html          # About page (hero, team grid, clients grid)
+├── scans.html          # 3D Scans page (hero, 3D model viewer, benefits, partner showcase, process steps)
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
@@ -30,9 +31,12 @@ TryjaxWebsite/
 │   └── tree_lined_driveway_1k.hdr   # HDR environment map for 3D model lighting
 ├── Images/
 │   ├── Favicon.png     # Site favicon
-│   ├── hero-bg.jpg     # Hero section background image
-│   ├── Logo.jpeg       # Placeholder logo used in team/client cards
-│   └── LogoText.png    # Logo used in header navigation
+│   ├── hero-bg.jpg                        # Hero section background image
+│   ├── iris-logo.png                      # IRIS partner company logo (original)
+│   ├── irisLogoTransparent.png            # IRIS logo for dark mode (transparent bg)
+│   ├── irisLogoTransparentInverted.png    # IRIS logo for light mode (inverted, transparent bg)
+│   ├── Logo.jpeg                          # Placeholder logo used in team/client cards
+│   └── LogoText.png                       # Logo used in header navigation
 ├── Models/
 │   └── Cube.glb        # 3D model for model-viewer component
 └── plans/
@@ -96,6 +100,27 @@ TryjaxWebsite/
 | 4 | Contact Form | `#contact-form.section.bg-light` | Form inside `.form-container`. Fields: Full Name, Email, Phone, Subject (two per `.form-row`), Message (full-width textarea). Submit button uses `.btn.submit-btn` classes |
 | 5 | Footer | `<footer>` | Same shared footer |
 
+---
+
+### 2.4 [`scans.html`](scans.html) — 3D Scans Page
+
+**Title:** `3D Scanning - Tryjax Construction`
+
+**Sections (top to bottom):**
+
+| # | Section | ID/Class | Description |
+|---|---------|----------|-------------|
+| 1 | Header | `<header>` | Same shared header with "Scans" nav link |
+| 2 | Hero | `#home.hero` | Page title "3D Scanning" with subtitle |
+| 3 | 3D Model Viewer | `#model-viewer.section` | `<model-viewer>` element displaying `Models/Cube.glb` with HDR lighting. Same configuration as home page. Includes "Explore 3D Scans" heading |
+| 4 | Benefits | `#benefits.section.bg-light` | Three `.service-card` items in `.services-grid` covering: Pinpoint Accuracy, Faster Project Timeline, Seamless Franchise Fit |
+| 5 | Partner Company | `#partner.section` | Centered `.partner-showcase` section featuring two theme-switched IRIS logos (`Images/irisLogoTransparentInverted.png` in light mode, `Images/irisLogoTransparent.png` in dark mode) and partnership description. Uses `.iris-logo-light` / `.iris-logo-dark` CSS classes toggled by `[data-theme]` attribute |
+| 6 | 3D Imaging Process | `#process.section.bg-light` | Alternating `.content-row` blocks (four rows, alternating left-image and right-image via `.reverse` class). Covers: On-Site Scan, Data Processing, Model Review, Build & Deliver |
+| 7 | Footer | `<footer>` | Same shared footer |
+
+**Special Notes:**
+- This page loads the `model-viewer` ES module from Google CDN (same as `index.html`)
+
 **Special Notes:**
 - Form has no `action` attribute — currently a static/placeholder form with no backend integration
 - No form validation JavaScript exists
@@ -114,6 +139,7 @@ TryjaxWebsite/
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
+                <li><a href="scans.html">Scans</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle dark mode">
@@ -259,6 +285,10 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.btn` | `<a>`, `<button>` | Orange accent button with hover state. Used for CTAs and form submit |
 | `.submit-btn` | `<button>` | Full-width variant of `.btn` with larger font |
 | `.theme-toggle` | `<button>` | Pill-shaped toggle with icon + label. Transparent background, orange border |
+| `.partner-showcase` | `<div>` | Centered layout for partner company logo and description text |
+| `.iris-logo` | `<img>` | Base class for IRIS logo images |
+| `.iris-logo-light` | `<img>` | IRIS logo visible in light mode (`display: block`), hidden in dark mode |
+| `.iris-logo-dark` | `<img>` | IRIS logo visible in dark mode (`display: block`), hidden in light mode |
 | `.section-title` | `<h2>` | Extra bottom margin (`60px`) for section headings |
 
 ### 4.5 Responsive Design
@@ -322,7 +352,7 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 
 ### 6.1 Integration
 
-The `<model-viewer>` element from Google's Model Viewer library is used on the home page only.
+The `<model-viewer>` element from Google's Model Viewer library is used on the home page (`index.html`) and 3D scans page (`scans.html`).
 
 **Script Load:**
 ```html
@@ -363,7 +393,7 @@ The `<model-viewer>` element from Google's Model Viewer library is used on the h
 
 | File | Format | Used In |
 |------|--------|---------|
-| `Cube.glb` | GLB (glTF Binary) | `<model-viewer>` on home page |
+| `Cube.glb` | GLB (glTF Binary) | `<model-viewer>` on home page and scans page |
 
 ### 7.3 HDR Environment Maps (`HDR/`)
 
@@ -521,35 +551,41 @@ flowchart TD
     subgraph Pages["Pages"]
         A[index.html<br/>Home]
         B[about.html<br/>About]
-        C[contact.html<br/>Contact]
+        C[scans.html<br/>3D Scans]
+        D[contact.html<br/>Contact]
     end
 
     subgraph Shared["Shared Resources"]
-        D[style.css<br/>Stylesheet]
-        E[theme.js<br/>Theme Manager]
+        E[style.css<br/>Stylesheet]
+        F[theme.js<br/>Theme Manager]
     end
 
     subgraph Assets["Assets"]
-        F[Images<br/>Favicon, Hero, Logo]
-        G[Models<br/>Cube.glb]
-        H[HDR<br/>Environment Map]
+        G[Images<br/>Favicon, Hero, Logo, IRIS Logo]
+        H[Models<br/>Cube.glb]
+        I[HDR<br/>Environment Map]
     end
 
-    A --> D
-    B --> D
-    C --> D
     A --> E
     B --> E
     C --> E
+    D --> E
     A --> F
     B --> F
     C --> F
+    D --> F
     A --> G
+    B --> G
+    C --> G
+    D --> G
     A --> H
+    C --> H
+    A --> I
+    C --> I
 
     subgraph Header["Shared Header Component"]
         H1[Logo Image]
-        H2[Nav Links]
+        H2[Nav Links: Home, About, Scans, Contact]
         H3[Theme Toggle]
     end
 
@@ -557,11 +593,12 @@ flowchart TD
         F1[Copyright Text]
     end
 
-    H1 -.-> F
+    H1 -.-> G
     H2 -.-> A
     H2 -.-> B
     H2 -.-> C
-    H3 -.-> E
+    H2 -.-> D
+    H3 -.-> F
 ```
 
 ---
@@ -595,6 +632,10 @@ flowchart TD
 | `content-row.reverse` | `.content-row.reverse` | Reversed content row (image right) |
 | `content-image` | `.content-image` | Image column in content rows |
 | `content-text` | `.content-text` | Text column in content rows |
+| `partner-showcase` | `.partner-showcase` | Centered layout for partner company logo and description |
+| `iris-logo` | `<img>` | Base class for IRIS logo images |
+| `iris-logo-light` | `<img>` | IRIS logo visible in light mode (`display: block`), hidden in dark mode |
+| `iris-logo-dark` | `<img>` | IRIS logo visible in dark mode (`display: block`), hidden in light mode |
 
 ---
 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scanning - Tryjax Construction</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="Images/Favicon.png">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.0/model-viewer.min.js"></script>
+    <script src="theme.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="scans.html">Scans</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <span class="icon">🌙</span>
+                            <span class="label">Dark</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>3D Scanning</h1>
+            <p>Precision digital captures for seamless franchise integration.</p>
+        </div>
+    </section>
+
+    <!-- 3D Model Viewer Section -->
+    <section id="model-viewer" class="section">
+        <div class="container">
+            <h2>Explore 3D Scans</h2>
+            <p>Interact with our 3D scans to visualize spaces in full detail. Rotate, zoom, and inspect every angle before construction begins.</p>
+            <model-viewer
+                alt="Tryjax Construction 3D Space Scan"
+                src="Models/Cube.glb"
+                environment-image="HDR/tree_lined_driveway_1k.hdr"
+                shadow-intensity="1"
+                camera-controls
+                touch-action="pan-y"
+                auto-rotate
+                camera-orbit="70deg 60deg 120%"
+                field-of-view="45deg"
+                min-camera-orbit="auto auto 50%"
+                max-camera-orbit="auto auto 200%"
+                exposure="0.8"
+                shadow-softness="0.5">
+            </model-viewer>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="section bg-light">
+        <div class="container">
+            <h2>Benefits of 3D Scanning</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Pinpoint Accuracy</h3>
+                    <p>Our 3D scanning technology captures spaces with millimeter-level precision, ensuring every measurement is exact. This eliminates guesswork and reduces costly rework during construction, saving both time and budget.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Faster Project Timeline</h3>
+                    <p>Digital scans accelerate the planning and design phases by providing instant, comprehensive data. Our team can begin working with accurate spatial information immediately, compressing schedules and getting projects to completion sooner.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Seamless Franchise Fit</h3>
+                    <p>By scanning existing spaces in 3D, we can precisely plan how franchise layouts integrate into unique and challenging environments. This ensures brand standards are met while adapting to the realities of each location.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Company Section -->
+    <section id="partner" class="section">
+        <div class="container partner-showcase">
+            <h2>Our Scanning Partner</h2>
+            <img class="iris-logo iris-logo-light" src="Images/irisLogoTransparentInverted.png" alt="IRIS Logo">
+            <img class="iris-logo iris-logo-dark" src="Images/irisLogoTransparent.png" alt="IRIS Logo">
+            <p>We partner with IRIS to deliver cutting-edge 3D imaging solutions. Their advanced scanning technology and expertise ensure we capture every detail of your space with unmatched fidelity, providing the foundation for precise planning and flawless execution.</p>
+        </div>
+    </section>
+
+    <!-- 3D Imaging Process Section -->
+    <section id="process" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">The 3D Imaging Process</h2>
+
+            <!-- Step 1: Image on Left -->
+            <div class="content-row">
+                <div class="content-image">
+                    <img src="Images/hero-bg.jpg" alt="On-site 3D scanning equipment">
+                </div>
+                <div class="content-text">
+                    <h2>Step 1: On-Site Scan</h2>
+                    <p>Our team visits your location with professional 3D scanning equipment. Using laser-based sensors and high-resolution cameras, we capture the complete geometry, textures, and spatial relationships of the entire space in a single visit.</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Image on Right -->
+            <div class="content-row reverse">
+                <div class="content-image">
+                    <img src="Images/Logo.jpeg" alt="Point cloud data processing">
+                </div>
+                <div class="content-text">
+                    <h2>Step 2: Data Processing</h2>
+                    <p>Raw scan data is processed into a detailed point cloud — millions of precise data points that form a digital representation of your space. Our software aligns, cleans, and organizes the data to create an accurate three-dimensional model ready for analysis.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Image on Left -->
+            <div class="content-row">
+                <div class="content-image">
+                    <img src="Images/hero-bg.jpg" alt="3D model review and planning">
+                </div>
+                <div class="content-text">
+                    <h2>Step 3: Model Review</h2>
+                    <p>The processed 3D model is reviewed by our design and engineering teams. We verify all measurements, identify potential challenges, and begin mapping the franchise layout onto the scanned space. This digital-first approach ensures a perfect fit before any physical work begins.</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Image on Right -->
+            <div class="content-row reverse">
+                <div class="content-image">
+                    <img src="Images/Logo.jpeg" alt="Construction and implementation">
+                </div>
+                <div class="content-text">
+                    <h2>Step 4: Build & Deliver</h2>
+                    <p>With the 3D model validated and the plan finalized, our construction team moves forward with confidence. Because every measurement was captured digitally, materials are ordered to exact specifications and installation proceeds smoothly — delivering your space on time and on budget.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Tryjax Construction. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
