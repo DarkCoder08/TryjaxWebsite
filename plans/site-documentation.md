@@ -12,7 +12,7 @@
 | **Type** | Static multi-page website (no backend, no framework) |
 | **Pages** | 4 (`index.html`, `about.html`, `scans.html`, `contact.html`) |
 | **Stylesheet** | 1 shared file (`style.css`) |
-| **JavaScript** | 1 shared file (`theme.js`) |
+| **JavaScript** | 2 shared files (`theme.js`, `hours.js`) |
 | **External Dependencies** | Google Model Viewer (`model-viewer` v4.3.0) — loaded via CDN as ES module |
 | **Theming** | CSS custom properties with light/dark toggle via `data-theme` attribute |
 | **Responsive** | Yes, single breakpoint at `768px` |
@@ -27,6 +27,7 @@ TryjaxWebsite/
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
+├── hours.js            # Timezone-aware business hours converter (contact page)
 ├── HDR/
 │   └── tree_lined_driveway_1k.hdr   # HDR environment map for 3D model lighting
 ├── Images/
@@ -96,7 +97,7 @@ TryjaxWebsite/
 |---|---------|----------|-------------|
 | 1 | Header | `<header>` | Same shared header |
 | 2 | Hero | `#home.hero` | Page title "Get In Touch" with subtitle |
-| 3 | Contact Info | `#contact-info.section` | Three `.service-card` items in a `.services-grid` displaying Phone, Email, and Location information |
+| 3 | Contact Info | `#contact-info.section` | Three `.service-card` items in a `.services-grid` displaying Phone (with dynamic timezone-adjusted hours via `hours.js`), Email, and Location information |
 | 4 | Contact Form | `#contact-form.section.bg-light` | Form inside `.form-container`. Fields: Full Name, Email, Phone, Subject (two per `.form-row`), Message (full-width textarea). Submit button uses `.btn.submit-btn` classes |
 | 5 | Footer | `<footer>` | Same shared footer |
 
@@ -350,6 +351,40 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 
 ---
 
+### 5.2 File: [`hours.js`](hours.js)
+
+**Pattern:** Immediately Invoked Function Expression (IIFE) — self-contained module.
+
+**Purpose:** Converts business hours from a base timezone to the visitor's local timezone and displays the result with a timezone label on the contact page.
+
+#### Configuration
+
+| Constant | Default | Description |
+|----------|---------|-------------|
+| `BASE_TIMEZONE` | `'America/New_York'` | IANA timezone where business hours are defined |
+| `HOURS.open` | `{ hour: 9, minute: 0 }` | Opening time in 24-hour format |
+| `HOURS.close` | `{ hour: 17, minute: 0 }` | Closing time in 24-hour format |
+
+#### Internal Functions
+
+| Function | Description |
+|----------|-------------|
+| `formatTime(hour, minute)` | Converts 24-hour time to 12-hour format with am/pm suffix |
+| `convertHours(baseTz, targetTz, openTime, closeTime)` | Calculates timezone offset using `toLocaleString()` comparison, applies it to open/close times |
+| `updateHours()` | Detects user timezone, converts hours, updates `#business-hours` element text |
+
+#### DOM Target
+
+| Selector | Element | Updated Content |
+|----------|---------|----------------|
+| `#business-hours` | `<p>` in Phone card | `Mon - Fri: {open} - {close} ({timezone name})` |
+
+#### Initialization
+
+Same pattern as `theme.js` — checks `document.readyState` and either attaches to `DOMContentLoaded` or runs immediately. Loaded at the bottom of `<body>` in `contact.html`.
+
+---
+
 ## 6. 3D Model Viewer
 
 ### 6.1 Integration
@@ -575,6 +610,7 @@ flowchart TD
     subgraph Shared["Shared Resources"]
         E[style.css<br/>Stylesheet]
         F[theme.js<br/>Theme Manager]
+        J[hours.js<br/>Business Hours Converter]
     end
 
     subgraph Assets["Assets"]
@@ -591,6 +627,7 @@ flowchart TD
     B --> F
     C --> F
     D --> F
+    D --> J
     A --> G
     B --> G
     C --> G
