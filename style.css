@@ -754,6 +754,13 @@ footer {
     display: block;
 }
 
+/* Full-size modifier — no cropping, natural image dimensions (capped at 80vh) */
+.content-image.full-size img {
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
 .content-text {
     flex: 1;
     min-width: 0;
@@ -782,6 +789,10 @@ footer {
 
     .content-image img {
         height: 250px;
+    }
+
+    .content-image.full-size img {
+        height: auto;
     }
 
     .content-text h2 {

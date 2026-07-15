@@ -263,6 +263,7 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.content-row` | Side-by-side image+text | Flexbox row, `gap: 40px`, `margin-bottom: 60px` |
 | `.content-row.reverse` | Reverse image/text order | `flex-direction: row-reverse` |
 | `.content-image` | Image column in content rows | `flex: 1`, `min-width: 0` |
+| `.content-image.full-size` | No-crop modifier for `.content-image` | `height: auto`, `max-height: 80vh`, `object-fit: contain` (off by default) |
 | `.content-text` | Text column in content rows | `flex: 1`, `min-width: 0` |
 | `.services-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` |
 | `.team-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))` |
@@ -304,6 +305,7 @@ Single breakpoint at **768px** (`max-width`):
 | `.theme-toggle` | Reduced padding and font size; label text hidden (icon only) |
 | `.content-row` / `.content-row.reverse` | Stacked vertically (`flex-direction: column`) |
 | `.content-image img` | Height reduced from `350px` to `250px` |
+| `.content-image.full-size img` | Height reset to `auto` (preserves no-crop behavior, ignores 250px override) |
 | `.content-text h2` | Center-aligned, font size reduced from `28px` to `24px` |
 | `.content-text p` | Center-aligned |
 | `.partners-track` | Reduced gap from `40px` to `20px`, faster animation (`20s`) |
@@ -471,7 +473,22 @@ Use the `.content-row` pattern from [`index.html`](index.html:72):
         <p>Description...</p>
     </div>
 </div>
+
+<!-- Full-size image (no cropping, natural dimensions, max 80vh) -->
+<div class="content-row">
+    <div class="content-image full-size">
+        <img src="Images/..." alt="...">
+    </div>
+    <div class="content-text">
+        <h2>Title</h2>
+        <p>Description...</p>
+    </div>
+</div>
 ```
+
+**Default behavior (no `.full-size` class):** Image is cropped to a fixed `350px` height using `object-fit: cover`. On mobile, height reduces to `250px`.
+
+**With `.full-size` modifier:** Image displays at its natural aspect ratio (`height: auto`, `object-fit: contain`) without cropping, capped at `max-height: 80vh`. The mobile `250px` height override is skipped, preserving the natural sizing on all screen sizes.
 
 ---
 
