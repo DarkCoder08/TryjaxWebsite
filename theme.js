@@ -73,7 +73,8 @@ const ThemeManager = (() => {
       const icon = toggleBtn.querySelector('.icon');
       const text = toggleBtn.querySelector('.label');
       if (icon) {
-        icon.textContent = theme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        icon.src = theme === 'dark' ? 'Images/SunIcon.png' : 'Images/MoonIcon.png';
+        icon.alt = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
       }
       if (text) {
         text.textContent = theme === 'dark' ? 'Light' : 'Dark';
