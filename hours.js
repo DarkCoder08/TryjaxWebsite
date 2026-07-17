@@ -1,6 +1,6 @@
 (function () {
     // Base business hours defined in a specific timezone
-    const BASE_TIMEZONE = 'America/New_York'; // Eastern Time
+    const BASE_TIMEZONE = 'America/Denver'; // Eastern Time
     const HOURS = {
         open: { hour: 9, minute: 0 },
         close: { hour: 17, minute: 0 }
@@ -32,9 +32,18 @@
         const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const converted = convertHours(BASE_TIMEZONE, userTz, HOURS.open, HOURS.close);
         const tzLabel = userTz.replace(/_/g, ' ');
+        const text = `Mon - Fri: ${converted.open} - ${converted.close} (${tzLabel})`;
+
+        // Contact page business hours card
         const el = document.getElementById('business-hours');
         if (el) {
-            el.textContent = `Mon - Fri: ${converted.open} - ${converted.close} (${tzLabel})`;
+            el.textContent = text;
+        }
+
+        // Footer business hours
+        const footerEl = document.getElementById('footer-business-hours');
+        if (footerEl) {
+            footerEl.textContent = text;
         }
     }
 

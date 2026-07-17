@@ -27,7 +27,7 @@ TryjaxWebsite/
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
-├── hours.js            # Timezone-aware business hours converter (contact page)
+├── hours.js            # Timezone-aware business hours converter (all pages)
 ├── HDR/
 │   └── tree_lined_driveway_1k.hdr   # HDR environment map for 3D model lighting
 ├── Images/
@@ -62,7 +62,7 @@ TryjaxWebsite/
 | 3 | 3D Model Viewer | `#model-viewer.section` | Contains a `<model-viewer>` element displaying `Models/Cube.glb` with HDR environment lighting. Features camera controls, auto-rotate, and custom camera orbit |
 | 4 | What We Do | `.section.bg-light` | Alternating image-text layout using `.content-row` blocks. Four rows total, alternating left-image and right-image (via `.reverse` class). Covers: Modern Commercial Spaces, National Development, Renovation and Remodeling, Sustainable Building Practices |
 | 5 | Partners Logos | `#partners.section.partners-section` | Infinite horizontal scrolling carousel of partner logos using pure CSS animation. Contains heading, subtitle, and a `.partners-track-wrapper` with edge-fade mask. Two identical sets of 8 `.partner-logo` items create a seamless loop via `translateX(-50%)` keyframe animation. Pauses on hover. Respects `prefers-reduced-motion` |
-| 6 | Footer | `<footer>` | Copyright text |
+| 6 | Footer | `<footer>` | Multi-column footer with Navigation links, Contact info, Business Hours (dynamic via `hours.js`), and copyright bottom bar |
 
 **Special Notes:**
 - This is the only page that loads the `model-viewer` ES module from Google CDN
@@ -83,7 +83,7 @@ TryjaxWebsite/
 | 3 | About Text | `#about.section` | Short company description paragraph |
 | 4 | Team | `#team.section.bg-light` | Team member grid using `.team-grid` (3 columns, auto-fit). Each `.team-card` has a circular avatar image, name, role, and bio |
 | 5 | Clients | `#clients.section` | Client logo grid using `.clients-grid`. Six `.client-card` items with hover lift effect |
-| 6 | Footer | `<footer>` | Same shared footer |
+| 6 | Footer | `<footer>` | Same shared multi-column footer |
 
 ---
 
@@ -97,9 +97,9 @@ TryjaxWebsite/
 |---|---------|----------|-------------|
 | 1 | Header | `<header>` | Same shared header |
 | 2 | Hero | `#home.hero` | Page title "Get In Touch" with subtitle |
-| 3 | Contact Info | `#contact-info.section` | Three `.service-card` items in a `.services-grid` displaying Phone (with dynamic timezone-adjusted hours via `hours.js`), Email, and Location information |
+| 3 | Contact Info | `#contact-info.section` | Two `.service-card` items in a `.services-grid` displaying Business Hours (dynamic timezone-adjusted hours via `hours.js`) and Email information |
 | 4 | Contact Form | `#contact-form.section.bg-light` | Form inside `.form-container`. Fields: Full Name, Email, Phone, Subject (two per `.form-row`), Message (full-width textarea). Submit button uses `.btn.submit-btn` classes |
-| 5 | Footer | `<footer>` | Same shared footer |
+| 5 | Footer | `<footer>` | Same shared multi-column footer |
 
 ---
 
@@ -117,7 +117,7 @@ TryjaxWebsite/
 | 4 | Benefits | `#benefits.section.bg-light` | Three `.service-card` items in `.services-grid` covering: Pinpoint Accuracy, Faster Project Timeline, Seamless Franchise Fit |
 | 5 | Partner Company | `#partner.section` | Centered `.partner-showcase` section featuring two theme-switched IRIS logos (`Images/irisLogoTransparentInverted.png` in light mode, `Images/irisLogoTransparent.png` in dark mode) and partnership description. Uses `.iris-logo-light` / `.iris-logo-dark` CSS classes toggled by `[data-theme]` attribute |
 | 6 | 3D Imaging Process | `#process.section.bg-light` | Alternating `.content-row` blocks (four rows, alternating left-image and right-image via `.reverse` class). Covers: On-Site Scan, Data Processing, Model Review, Build & Deliver |
-| 7 | Footer | `<footer>` | Same shared footer |
+| 7 | Footer | `<footer>` | Same shared multi-column footer |
 
 **Special Notes:**
 - This page loads the `model-viewer` ES module from Google CDN (same as `index.html`)
@@ -164,12 +164,43 @@ TryjaxWebsite/
 ```html
 <footer>
     <div class="container">
-        <p>&copy; 2026 Tryjax Construction. All rights reserved.</p>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="scans.html">3D Imaging</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <p><a href="mailto:info@tryjax.com">info@tryjax.com</a></p>
+                <p>We respond within 24 hours</p>
+            </div>
+            <div class="footer-column">
+                <h3>Business Hours</h3>
+                <p id="footer-business-hours"></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p>&copy; 2026 Tryjax Construction. All rights reserved.</p>
+        </div>
     </div>
 </footer>
+<script src="hours.js"></script>
 ```
 
+- 3-column grid layout (`.footer-grid`) with Navigation, Contact, and Business Hours columns
+- Each column has an `<h3>` title styled with accent color and bottom border
+- Navigation links have hover effects (color change + subtle left shift)
+- Business Hours column populated dynamically by `hours.js` targeting `#footer-business-hours`
+- Bottom bar (`.footer-bottom`) contains copyright text, separated by top border
 - `margin-top: auto` on footer pushes it to the bottom via flexbox column on `<body>`
+- Responsive: Columns stack vertically at `768px` breakpoint with centered text
 
 ### 3.3 Hero Section (All Pages)
 
@@ -258,7 +289,7 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | Class | Purpose | Key Properties |
 |-------|---------|---------------|
 | `.container` | Centered content wrapper | `width: 80%`, `margin: auto`, `overflow: hidden` |
-| `.section` | Generic section spacing | `padding: 40px 0` |
+| `.section` | Generic section spacing | `padding: 40px 0`, `text-align: center` |
 | `.bg-light` | Alternating section background | `background-color: var(--bg-secondary)` |
 | `.hero` | Hero section layout | Flexbox column, centered, `height: 400px` |
 | `.content-row` | Side-by-side image+text | Flexbox row, `gap: 40px`, `margin-bottom: 60px` |
@@ -276,6 +307,9 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.form-container` | Centered form wrapper | `max-width: 800px`, centered, card-style with shadow |
 | `.form-row` | Two-column form layout | `grid-template-columns: 1fr 1fr`, `gap: 20px` |
 | `.form-group` | Single form field | Flexbox column, `margin-bottom: 20px` |
+| `.footer-grid` | 3-column footer layout | `grid-template-columns: repeat(3, 1fr)`, stacks to 1 column at `768px` |
+| `.footer-column` | Individual footer column | Contains `<h3>` title + content (nav list, contact info, or hours) |
+| `.footer-bottom` | Footer copyright bar | Top border separator, centered text |
 
 ### 4.4 Component Classes
 
@@ -355,7 +389,7 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 
 **Pattern:** Immediately Invoked Function Expression (IIFE) — self-contained module.
 
-**Purpose:** Converts business hours from a base timezone to the visitor's local timezone and displays the result with a timezone label on the contact page.
+**Purpose:** Converts business hours from a base timezone to the visitor's local timezone and displays the result with a timezone label on all pages (contact info card and footer).
 
 #### Configuration
 
@@ -371,17 +405,18 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 |----------|-------------|
 | `formatTime(hour, minute)` | Converts 24-hour time to 12-hour format with am/pm suffix |
 | `convertHours(baseTz, targetTz, openTime, closeTime)` | Calculates timezone offset using `toLocaleString()` comparison, applies it to open/close times |
-| `updateHours()` | Detects user timezone, converts hours, updates `#business-hours` element text |
+| `updateHours()` | Detects user timezone, converts hours, updates both `#business-hours` and `#footer-business-hours` elements |
 
-#### DOM Target
+#### DOM Targets
 
-| Selector | Element | Updated Content |
-|----------|---------|----------------|
-| `#business-hours` | `<p>` in Phone card | `Mon - Fri: {open} - {close} ({timezone name})` |
+| Selector | Element | Location | Updated Content |
+|----------|---------|----------|----------------|
+| `#business-hours` | `<p>` in Business Hours card | Contact page only | `Mon - Fri: {open} - {close} ({timezone name})` |
+| `#footer-business-hours` | `<p>` in footer Business Hours column | All pages | `Mon - Fri: {open} - {close} ({timezone name})` |
 
 #### Initialization
 
-Same pattern as `theme.js` — checks `document.readyState` and either attaches to `DOMContentLoaded` or runs immediately. Loaded at the bottom of `<body>` in `contact.html`.
+Same pattern as `theme.js` — checks `document.readyState` and either attaches to `DOMContentLoaded` or runs immediately. Loaded at the bottom of `<body>` on all pages (before `</body>`).
 
 ---
 
@@ -627,6 +662,9 @@ flowchart TD
     B --> F
     C --> F
     D --> F
+    A --> J
+    B --> J
+    C --> J
     D --> J
     A --> G
     B --> G
@@ -644,7 +682,10 @@ flowchart TD
     end
 
     subgraph Footer["Shared Footer Component"]
-        F1[Copyright Text]
+        F1[Navigation Links]
+        F2[Contact Info]
+        F3[Business Hours (via hours.js)]
+        F4[Copyright Bottom Bar]
     end
 
     H1 -.-> G
@@ -690,6 +731,9 @@ flowchart TD
 | `iris-logo` | `<img>` | Base class for IRIS logo images |
 | `iris-logo-light` | `<img>` | IRIS logo visible in light mode (`display: block`), hidden in dark mode |
 | `iris-logo-dark` | `<img>` | IRIS logo visible in dark mode (`display: block`), hidden in light mode |
+| `footer-grid` | `.footer-grid` | 3-column grid layout for footer content columns |
+| `footer-column` | `.footer-column` | Individual footer column with title and content |
+| `footer-bottom` | `.footer-bottom` | Footer copyright bar with top border separator |
 
 ---
 
