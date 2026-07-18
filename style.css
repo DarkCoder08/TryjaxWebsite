@@ -235,6 +235,7 @@ header nav ul li a:hover {
 
 .section.bg-light {
     background-color: var(--bg-secondary);
+    text-align: left;
 }
 
 h2 {
