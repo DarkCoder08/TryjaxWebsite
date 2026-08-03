@@ -541,6 +541,26 @@ h2 {
     color: var(--text-secondary);
 }
 
+/* ===== Coverage Area Map Section ===== */
+
+.map-figure {
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+}
+
+.map-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease;
+}
+
+.map-figure img:hover {
+    box-shadow: var(--shadow-card-hover);
+}
+
 /* 3D Model Viewer Section */
 #model-viewer {
     text-align: center;

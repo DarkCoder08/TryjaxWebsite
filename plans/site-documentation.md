@@ -61,8 +61,9 @@ TryjaxWebsite/
 | 2 | Hero | `#home.hero` | Full-width background image (`hero-bg.jpg`) with overlay. Contains H1 tagline, subtitle paragraph, and CTA `.btn` linking to `contact.html` |
 | 3 | 3D Model Viewer | `#model-viewer.section` | Contains a `<model-viewer>` element displaying `Models/Cube.glb` with HDR environment lighting. Features camera controls, auto-rotate, and custom camera orbit |
 | 4 | What We Do | `.section.bg-light` | Alternating image-text layout using `.content-row` blocks. Four rows total, alternating left-image and right-image (via `.reverse` class). Covers: Modern Commercial Spaces, National Development, Renovation and Remodeling, Sustainable Building Practices |
-| 5 | Partners Logos | `#partners.section.partners-section` | Infinite horizontal scrolling carousel of partner logos using pure CSS animation. Contains heading, subtitle, and a `.partners-track-wrapper` with edge-fade mask. Two identical sets of 8 `.partner-logo` items create a seamless loop via `translateX(-50%)` keyframe animation. Pauses on hover. Respects `prefers-reduced-motion` |
-| 6 | Footer | `<footer>` | Multi-column footer with Navigation links, Contact info, Business Hours (dynamic via `hours.js`), and copyright bottom bar |
+| 5 | Coverage Area (Map) | `#coverage-area.section` | Section displaying a US map (`Images/Blank_US_Map_(states_only).webp`) inside a `<figure class="map-figure">` wrapper. Includes descriptive subtitle mentioning 41 states of coverage. Image uses `loading="lazy"`, `decoding="async"`, and explicit `width`/`height` attributes for performance and CLS prevention |
+| 6 | Partners Logos | `#partners.section.partners-section` | Infinite horizontal scrolling carousel of partner logos using pure CSS animation. Contains heading, subtitle, and a `.partners-track-wrapper` with edge-fade mask. Two identical sets of 8 `.partner-logo` items create a seamless loop via `translateX(-50%)` keyframe animation. Pauses on hover. Respects `prefers-reduced-motion` |
+| 7 | Footer | `<footer>` | Multi-column footer with Navigation links, Contact info, Business Hours (dynamic via `hours.js`), and copyright bottom bar |
 
 **Special Notes:**
 - This is the only page that loads the `model-viewer` ES module from Google CDN
@@ -300,6 +301,7 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.services-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` |
 | `.team-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))` |
 | `.clients-grid` | Multi-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))` |
+| `.map-figure` | Coverage area map wrapper | `max-width: 800px`, centered, `border-radius: 8px`, `box-shadow: var(--shadow-card)` with hover transition |
 | `.partners-section` | Partners logos section | `background-color: var(--bg-secondary)`, `overflow: hidden` |
 | `.partners-track-wrapper` | Full-width overflow container | `mask-image` for edge fade, hides logos entering/exiting |
 | `.partners-track` | Animated flex row | `display: flex`, `gap: 40px`, `width: max-content`, infinite scroll via `@keyframes partnersScroll` |
@@ -321,6 +323,7 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.btn` | `<a>`, `<button>` | Orange accent button with hover state. Used for CTAs and form submit |
 | `.submit-btn` | `<button>` | Full-width variant of `.btn` with larger font |
 | `.theme-toggle` | `<button>` | Pill-shaped toggle with icon + label. Transparent background, orange border |
+| `.map-figure` | `<figure>` | Semantic wrapper for the US coverage map image. Centered with rounded corners, card shadow, and hover effect |
 | `.partner-showcase` | `<div>` | Centered layout for partner company logo and description text |
 | `.iris-logo` | `<img>` | Base class for IRIS logo images |
 | `.iris-logo-light` | `<img>` | IRIS logo visible in light mode (`display: block`), hidden in dark mode |
@@ -715,6 +718,7 @@ flowchart TD
 | `team-card` | `.team-card` | Card with circular avatar, name, role, bio |
 | `clients-grid` | `.clients-grid` | Auto-fit grid for client logos |
 | `client-card` | `.client-card` | Square card with hover lift effect |
+| `map-figure` | `.map-figure` | Semantic figure wrapper for US coverage map image |
 | `partners-section` | `.partners-section` | Partners logos scrolling carousel section |
 | `partners-track-wrapper` | `.partners-track-wrapper` | Overflow container with edge-fade mask |
 | `partners-track` | `.partners-track` | Animated flex row with infinite scroll keyframes |
