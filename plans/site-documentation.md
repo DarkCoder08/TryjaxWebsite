@@ -98,7 +98,7 @@ TryjaxWebsite/
 |---|---------|----------|-------------|
 | 1 | Header | `<header>` | Same shared header |
 | 2 | Hero | `#home.hero` | Page title "Get In Touch" with subtitle |
-| 3 | Contact Info | `#contact-info.section` | Two `.service-card` items in a `.services-grid` displaying Business Hours (dynamic timezone-adjusted hours via `hours.js`) and Email information |
+| 3 | Contact Info | `#contact-info.section` | Two `.service-card` items in a `.services-grid` displaying Business Hours (dynamic timezone-adjusted hours + adjustment note via `hours.js`) and Email information |
 | 4 | Contact Form | `#contact-form.section.bg-light` | Form inside `.form-container`. Fields: Full Name, Email, Phone, Subject (two per `.form-row`), Message (full-width textarea). Submit button uses `.btn.submit-btn` classes |
 | 5 | Footer | `<footer>` | Same shared multi-column footer |
 
@@ -183,6 +183,7 @@ TryjaxWebsite/
             <div class="footer-column">
                 <h3>Business Hours</h3>
                 <p id="footer-business-hours"></p>
+                <p id="footer-business-hours-note" class="hours-note"></p>
             </div>
         </div>
     </div>
@@ -392,13 +393,13 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 
 **Pattern:** Immediately Invoked Function Expression (IIFE) — self-contained module.
 
-**Purpose:** Converts business hours from a base timezone to the visitor's local timezone and displays the result with a timezone label on all pages (contact info card and footer).
+**Purpose:** Converts business hours from a base timezone to the visitor's local timezone and displays the result with a timezone label on all pages (contact info card and footer). When the visitor's local timezone differs from the base timezone, a small note below the hours explains that the times have been adjusted to the visitor's local time zone.
 
 #### Configuration
 
 | Constant | Default | Description |
 |----------|---------|-------------|
-| `BASE_TIMEZONE` | `'America/New_York'` | IANA timezone where business hours are defined |
+| `BASE_TIMEZONE` | `'America/Denver'` | IANA timezone where business hours are defined |
 | `HOURS.open` | `{ hour: 9, minute: 0 }` | Opening time in 24-hour format |
 | `HOURS.close` | `{ hour: 17, minute: 0 }` | Closing time in 24-hour format |
 
@@ -407,15 +408,25 @@ Script checks `document.readyState`. If DOM is still loading, attaches to `DOMCo
 | Function | Description |
 |----------|-------------|
 | `formatTime(hour, minute)` | Converts 24-hour time to 12-hour format with am/pm suffix |
-| `convertHours(baseTz, targetTz, openTime, closeTime)` | Calculates timezone offset using `toLocaleString()` comparison, applies it to open/close times |
-| `updateHours()` | Detects user timezone, converts hours, updates both `#business-hours` and `#footer-business-hours` elements |
+| `convertHours(baseTz, targetTz, openTime, closeTime)` | Calculates timezone offset using `toLocaleString()` comparison, applies it to open/close times; returns `{ open, close, adjusted }` where `adjusted` is `true` when the offset from the base timezone is non-zero |
+| `updateHours()` | Detects user timezone, converts hours, updates all four DOM targets below (hours text + adjustment note) |
+
+#### Timezone Adjustment Note
+
+- After conversion, `updateHours()` compares the visitor's offset against the base timezone:
+  - **Offset differs (adjustment happened):** the note elements are filled with `These hours have been adjusted to your local time zone ({timezone name}).`
+  - **Offset is zero (visitor already in `America/Denver`):** the note elements are left empty and hidden via the `.hours-note:empty { display: none; }` CSS rule — nothing is displayed.
+- The note appears directly below the hours text in the contact page Business Hours card and in the footer Business Hours column of every page.
+- Styling: the `.hours-note` class (see `style.css`) renders small italic text using `var(--text-secondary)` (footer: `var(--text-footer)` at reduced opacity), so it follows the active light/dark theme.
 
 #### DOM Targets
 
 | Selector | Element | Location | Updated Content |
 |----------|---------|----------|----------------|
 | `#business-hours` | `<p>` in Business Hours card | Contact page only | `Mon - Fri: {open} - {close} ({timezone name})` |
+| `#business-hours-note` | `<p class="hours-note">` in Business Hours card | Contact page only | Adjustment note (see above); empty + hidden when no adjustment |
 | `#footer-business-hours` | `<p>` in footer Business Hours column | All pages | `Mon - Fri: {open} - {close} ({timezone name})` |
+| `#footer-business-hours-note` | `<p class="hours-note">` in footer Business Hours column | All pages | Adjustment note (see above); empty + hidden when no adjustment |
 
 #### Initialization
 

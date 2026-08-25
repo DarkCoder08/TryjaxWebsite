@@ -678,6 +678,29 @@ model-viewer {
     margin: 5px 0;
 }
 
+/* Timezone adjustment note (populated by hours.js) */
+.hours-note {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+}
+
+/* Hidden when hours.js leaves the note empty (visitor already in the base timezone) */
+.hours-note:empty {
+    display: none;
+}
+
+/* Keep the note readable in both themes inside the contact card (overrides the hardcoded #666 above) */
+#contact-info .service-card .hours-note {
+    color: var(--text-secondary);
+}
+
+.footer-column .hours-note {
+    color: var(--text-footer);
+    opacity: 0.7;
+}
+
 /* Responsive form adjustments */
 @media (max-width: 768px) {
     .form-row {
