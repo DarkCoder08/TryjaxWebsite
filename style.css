@@ -38,6 +38,8 @@
 
     /* Hero overlay */
     --hero-overlay: rgba(0, 0, 0, 0.5);
+    /* Localized hero text halo (darkening behind the hero text) */
+    --hero-halo: rgba(0, 0, 0, 0.72);
 }
 
 /* Dark theme */
@@ -76,6 +78,8 @@
 
     /* Hero overlay - lighter for dark mode */
     --hero-overlay: rgba(0, 0, 0, 0.3);
+    /* Localized hero text halo - slightly stronger for dark mode */
+    --hero-halo: rgba(0, 0, 0, 0.78);
 }
 
 body {
@@ -188,7 +192,7 @@ header nav ul li a:hover {
     padding: 0 20px;
 }
 
-/* Dark overlay for text readability */
+/* Localized dark halo behind the hero text for readability */
 #home::before {
     content: '';
     position: absolute;
@@ -196,8 +200,14 @@ header nav ul li a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--hero-overlay);
+    background: radial-gradient(
+        ellipse 75% 60% at center,
+        var(--hero-halo) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        transparent 75%
+    );
     z-index: 1;
+    pointer-events: none;
 }
 
 #home .container {
@@ -713,6 +723,16 @@ model-viewer {
     
     .hero {
         height: 300px;
+    }
+
+    /* Widen the halo so it still covers the taller text block on mobile */
+    #home::before {
+        background: radial-gradient(
+            ellipse 120% 120% at center,
+            var(--hero-halo) 0%,
+            rgba(0, 0, 0, 0.4) 40%,
+            transparent 75%
+        );
     }
 }
 

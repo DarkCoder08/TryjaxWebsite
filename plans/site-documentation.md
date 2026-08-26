@@ -208,6 +208,40 @@ TryjaxWebsite/
 
 All pages use the same hero structure with `id="home"` and class `hero`. The background image (`hero-bg.jpg`) and dark overlay (`::before` pseudo-element) are identical across pages. Only the inner text (H1 and paragraph) changes per page.
 
+#### Hero Text Halo
+
+The `#home::before` pseudo-element renders a localized radial-gradient "halo" that darkens the background only around the hero text, keeping the hero text readable without darkening the entire `hero-bg.jpg`. The outer area of the image stays bright.
+
+```css
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(
+        ellipse 75% 60% at center,
+        var(--hero-halo) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        transparent 75%
+    );
+    z-index: 1;
+    pointer-events: none;
+}
+```
+
+- **Stacking:** The halo sits at `z-index: 1`; `#home .container` is `position: relative; z-index: 2`, so the H1/subtitle render above it. `pointer-events: none` on the pseudo-element keeps the CTA `.btn` clickable.
+- **Theme variable:** The center gradient stop uses `--hero-halo`, which `theme.js` switches via the `data-theme` attribute on `<html>` (see Section 5.1):
+
+| Theme | Selector | Value |
+|-------|----------|-------|
+| Light | `:root` | `rgba(0, 0, 0, 0.72)` |
+| Dark | `[data-theme="dark"]` | `rgba(0, 0, 0, 0.78)` |
+
+- **Mobile:** In the `@media (max-width: 768px)` block, the ellipse widens to `ellipse 120% 120% at center` with the same gradient stops so the taller wrapping text block stays covered.
+- **Tuning knobs:** `--hero-halo` (center intensity per theme), the ellipse dimensions (`75% 60%` desktop, `120% 120%` mobile), and the gradient stops (`0%` center, `40%` mid, `75%` transparent).
+- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `scans.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
+
+**Tuning note:** The first gradient pass (center `0.55`/`0.6` → `0.3` → transparent) was structurally correct but perceptually too faint over the bright image; the center stops were raised to `0.72`/`0.78` and the mid stop to `0.4`.
+
 ---
 
 ## 4. CSS Architecture
