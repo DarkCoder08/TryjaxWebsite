@@ -961,3 +961,80 @@ footer .container {
         text-align: center;
     }
 }
+
+/* ===== Mural Gallery Section ===== */
+
+.mural-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.mural-tile {
+    height: 220px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mural-tile span {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+}
+
+.mural-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* Distinct placeholder gradients — semi-transparent so they read in both themes */
+.mural-tile-1 { background: linear-gradient(135deg, rgba(230, 126, 34, 0.45), rgba(142, 68, 173, 0.35)); }
+.mural-tile-2 { background: linear-gradient(135deg, rgba(52, 152, 219, 0.45), rgba(26, 188, 156, 0.35)); }
+.mural-tile-3 { background: linear-gradient(135deg, rgba(231, 76, 60, 0.40), rgba(230, 126, 34, 0.35)); }
+.mural-tile-4 { background: linear-gradient(135deg, rgba(142, 68, 173, 0.40), rgba(52, 73, 94, 0.40)); }
+.mural-tile-5 { background: linear-gradient(135deg, rgba(26, 188, 156, 0.40), rgba(41, 128, 185, 0.35)); }
+.mural-tile-6 { background: linear-gradient(135deg, rgba(241, 196, 15, 0.40), rgba(230, 126, 34, 0.35)); }
+
+/* Content-row heading link — used by the "Custom Murals" point in "What We Do" (index.html) */
+.content-text h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.content-text h2 a:hover {
+    color: var(--accent-hover);
+}
+
+/* Custom Murals row placeholder — gradient tile sized like the sibling .content-image img
+   (semi-transparent, so it reads in both light and dark themes). Swap for a real <img> when available. */
+.content-image-placeholder {
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: linear-gradient(135deg, rgba(230, 126, 34, 0.45), rgba(142, 68, 173, 0.35));
+}
+
+.content-image-placeholder span {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-style: italic;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .content-image-placeholder {
+        height: 250px;
+    }
+}

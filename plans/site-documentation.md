@@ -10,7 +10,7 @@
 |----------|-------|
 | **Site Name** | Tryjax Construction |
 | **Type** | Static multi-page website (no backend, no framework) |
-| **Pages** | 4 (`index.html`, `about.html`, `scans.html`, `contact.html`) |
+| **Pages** | 5 (`index.html`, `about.html`, `scans.html`, `mural.html`, `contact.html`) |
 | **Stylesheet** | 1 shared file (`style.css`) |
 | **JavaScript** | 2 shared files (`theme.js`, `hours.js`) |
 | **External Dependencies** | Google Model Viewer (`model-viewer` v4.3.0) — loaded via CDN as ES module |
@@ -24,6 +24,7 @@ TryjaxWebsite/
 ├── index.html          # Home page (hero, 3D model viewer, alternating content rows, partners carousel)
 ├── about.html          # About page (hero, team grid, clients grid)
 ├── scans.html          # 3D Scans page (hero, 3D model viewer, benefits, partner showcase, process steps)
+├── mural.html          # Murals page (hero, feature cards, placeholder gallery, CTA)
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
@@ -60,7 +61,7 @@ TryjaxWebsite/
 | 1 | Header | `<header>` | Shared header with logo image + nav links + theme toggle button |
 | 2 | Hero | `#home.hero` | Full-width background image (`hero-bg.jpg`) with overlay. Contains H1 tagline, subtitle paragraph, and CTA `.btn` linking to `contact.html` |
 | 3 | 3D Model Viewer | `#model-viewer.section` | Contains a `<model-viewer>` element displaying `Models/Cube.glb` with HDR environment lighting. Features camera controls, auto-rotate, and custom camera orbit |
-| 4 | What We Do | `.section.bg-light` | Alternating image-text layout using `.content-row` blocks. Four rows total, alternating left-image and right-image (via `.reverse` class). Covers: Modern Commercial Spaces, National Development, Renovation and Remodeling, Sustainable Building Practices |
+| 4 | What We Do | `.section.bg-light` | Alternating image-text layout using `.content-row` blocks. Four rows total, alternating left-image and right-image (via `.reverse` class). Covers: Ground Up Construction, National Development, Renovation and Remodeling, and Custom Murals — the "Custom Murals" row's H2 is an anchor linking to `mural.html` (styled via `.content-text h2 a` in `style.css`). That row's image column is a CSS gradient placeholder (`.content-image-placeholder`, matching the `.mural-tile` gallery aesthetic on `mural.html`) until real installation photography exists; it is sized identically to the sibling `.content-image img` boxes |
 | 5 | Coverage Area (Map) | `#coverage-area.section` | Section displaying a US map (`Images/Blank_US_Map_(states_only).webp`) inside a `<figure class="map-figure">` wrapper. Includes descriptive subtitle mentioning 41 states of coverage. Image uses `loading="lazy"`, `decoding="async"`, and explicit `width`/`height` attributes for performance and CLS prevention |
 | 6 | Partners Logos | `#partners.section.partners-section` | Infinite horizontal scrolling carousel of partner logos using pure CSS animation. Contains heading, subtitle, and a `.partners-track-wrapper` with edge-fade mask. Two identical sets of 8 `.partner-logo` items create a seamless loop via `translateX(-50%)` keyframe animation. Pauses on hover. Respects `prefers-reduced-motion` |
 | 7 | Footer | `<footer>` | Multi-column footer with Navigation links, Contact info, Business Hours (dynamic via `hours.js`), and copyright bottom bar |
@@ -129,6 +130,36 @@ TryjaxWebsite/
 
 ---
 
+### 2.5 [`mural.html`](mural.html) — Mural Services Page
+
+**Title:** `Custom Murals - Tryjax Construction`
+
+**Sections (top to bottom):**
+
+| # | Section | ID/Class | Description |
+|---|---------|----------|-------------|
+| 1 | Header | `<header>` | Same shared header, including the "Murals" nav link |
+| 2 | Hero | `#home.hero` | Page title "Custom Murals" with subtitle "Full turnkey wall graphics for commercial spaces — designed, printed, and installed by Tryjax." No CTA button (matches the `about.html` / `scans.html` heroes). Uses the same `hero-bg.jpg` background |
+| 3 | Key Selling Points | `#features.section.bg-light` | Heading "Why Choose Tryjax Murals" with three `.service-card` items in a `.services-grid` (card copy below) |
+| 4 | Mural Gallery | `#gallery.section` | Heading "Mural Gallery" + inline-styled centered subtitle ("A selection of our work. Full installation photography is coming soon."). Six placeholder tiles (`.mural-tile mural-tile-1` … `.mural-tile-6`) in a `.mural-gallery` grid — each is a gradient `<div>` with a centered italic `<span>` label "Mural Photo Coming Soon" |
+| 5 | CTA | `#cta.section.bg-light` | Centered H2 "Ready to Bring Your Walls to Life?", paragraph, and a `.btn` "Get a Quote" linking to `contact.html` |
+| 6 | Footer | `<footer>` | Same shared multi-column footer, including the "Murals" nav link |
+
+**Selling-point cards (`#features`):**
+
+| # | Card `<h3>` | Card copy |
+|---|-------------|-----------|
+| 1 | Full Turnkey Solution | In-house design, on-site measuring, quick turnaround, competitive bulk pricing, and on-site licensed and insured installation. One team handles your mural from concept to finished wall. |
+| 2 | Commercial Grade & Safe | Our mural material is fire-rated and safe for commercial use, so your investment meets the safety and compliance standards your property requires. |
+| 3 | Customizable Options | Produced in any design or shape, with various finishes available — including UV and reactive prints — so every mural matches your brand exactly. |
+
+**Special Notes:**
+- This page does **not** load the `model-viewer` ES module (same as `about.html` / `contact.html`)
+- Loads `theme.js` in `<head>` and `hours.js` at the bottom of `<body>`, like every other page
+- Gallery tiles are CSS gradient placeholders — no real mural photos exist yet (no image assets were created). To swap in real photos, replace each `<div class="mural-tile mural-tile-N"><span>…</span></div>` with an `<img src="Images/mural-N.jpg" alt="...">` and add a `.mural-gallery img` rule — or keep the tile `<div>` and place the `<img>` inside it at `width: 100%; height: 100%; object-fit: cover;`. No other structural change is needed
+
+---
+
 ## 3. Shared Components
 
 ### 3.1 Header (All Pages)
@@ -141,11 +172,12 @@ TryjaxWebsite/
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="scans.html">Scans</a></li>
+                <li><a href="scans.html">3D Imaging</a></li>
+                <li><a href="mural.html">Murals</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle dark mode">
-                        <span class="icon">🌙</span>
+                        <img class="icon" src="Images/MoonIcon.png" alt="">
                         <span class="label">Dark</span>
                     </button>
                 </li>
@@ -157,8 +189,9 @@ TryjaxWebsite/
 
 - Flexbox layout with logo left, nav right
 - Logo is an `<img>` inside an `<a>` link
-- Nav items are flex-aligned with full-height hover backgrounds
+- Nav items are flex-aligned with full-height hover backgrounds (order: Home, About, 3D Imaging, Murals, Contact)
 - Theme toggle button is the last nav item
+- The toggle icon is an `<img class="icon">` (`Images/MoonIcon.png` in light mode, `Images/SunIcon.png` in dark mode), swapped by `theme.js`
 
 ### 3.2 Footer (All Pages)
 
@@ -172,6 +205,7 @@ TryjaxWebsite/
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="scans.html">3D Imaging</a></li>
+                    <li><a href="mural.html">Murals</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
@@ -238,7 +272,7 @@ The `#home::before` pseudo-element renders a localized radial-gradient "halo" th
 
 - **Mobile:** In the `@media (max-width: 768px)` block, the ellipse widens to `ellipse 120% 120% at center` with the same gradient stops so the taller wrapping text block stays covered.
 - **Tuning knobs:** `--hero-halo` (center intensity per theme), the ellipse dimensions (`75% 60%` desktop, `120% 120%` mobile), and the gradient stops (`0%` center, `40%` mid, `75%` transparent).
-- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `scans.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
+- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `scans.html`, `mural.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
 
 **Tuning note:** The first gradient pass (center `0.55`/`0.6` → `0.3` → transparent) was structurally correct but perceptually too faint over the bright image; the center stops were raised to `0.72`/`0.78` and the mid stop to `0.4`.
 
@@ -266,6 +300,7 @@ Single stylesheet for the entire site. No CSS preprocessor or module bundling.
 12. Theme Toggle button styles
 13. Alternating Image-Text content rows
 14. Responsive media queries (interspersed near relevant sections)
+15. Mural gallery (`.mural-gallery`, `.mural-tile`, `.mural-tile-1` … `.mural-tile-6` — appended at the end of the file)
 
 ### 4.2 CSS Custom Properties (Theming System)
 
@@ -331,6 +366,7 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.content-row` | Side-by-side image+text | Flexbox row, `gap: 40px`, `margin-bottom: 60px` |
 | `.content-row.reverse` | Reverse image/text order | `flex-direction: row-reverse` |
 | `.content-image` | Image column in content rows | `flex: 1`, `min-width: 0` |
+| `.content-image-placeholder` | Gradient placeholder tile in the Custom Murals row (matches `.mural-tile`) | `width: 100%`, `height: 350px` (250px at 768px), `border-radius: 8px`, `box-shadow: var(--shadow-card)`, centered italic label, semi-transparent orange → purple gradient |
 | `.content-image.full-size` | No-crop modifier for `.content-image` | `height: auto`, `max-height: 80vh`, `object-fit: contain` (off by default) |
 | `.content-text` | Text column in content rows | `flex: 1`, `min-width: 0` |
 | `.services-grid` | 3-column auto-fit grid | `grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))` |
@@ -347,6 +383,8 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.footer-grid` | 3-column footer layout | `grid-template-columns: repeat(3, 1fr)`, stacks to 1 column at `768px` |
 | `.footer-column` | Individual footer column | Contains `<h3>` title + content (nav list, contact info, or hours) |
 | `.footer-bottom` | Footer copyright bar | Top border separator, centered text |
+| `.mural-gallery` | Mural gallery grid | `display: grid`, `grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))`, `gap: 20px` — auto-reflows at the `768px` breakpoint, no dedicated media query |
+| `.mural-tile` | Placeholder mural gallery tile | Fixed `height: 220px`, `border-radius: 8px`, `box-shadow: var(--shadow-card)`, centered flex label, hover lift (`translateY(-5px)` + `var(--shadow-card-hover)`) |
 
 ### 4.4 Component Classes
 
@@ -378,12 +416,14 @@ Single breakpoint at **768px** (`max-width`):
 | `.theme-toggle` | Reduced padding and font size; label text hidden (icon only) |
 | `.content-row` / `.content-row.reverse` | Stacked vertically (`flex-direction: column`) |
 | `.content-image img` | Height reduced from `350px` to `250px` |
+| `.content-image-placeholder` | Height reduced from `350px` to `250px` (keeps the placeholder box in step with the sibling image rows) |
 | `.content-image.full-size img` | Height reset to `auto` (preserves no-crop behavior, ignores 250px override) |
 | `.content-text h2` | Center-aligned, font size reduced from `28px` to `24px` |
 | `.content-text p` | Center-aligned |
 | `.partners-track` | Reduced gap from `40px` to `20px`, faster animation (`20s`) |
 | `.partner-logo` | Reduced size from `180px×100px` to `140px×80px`, reduced padding |
 | `.partner-logo img` | Max-height reduced from `60px` to `45px` |
+| `.mural-tile` | No change — the `.mural-gallery` auto-fit grid reflows at the `768px` breakpoint |
 
 ---
 
@@ -409,7 +449,7 @@ Single breakpoint at **768px** (`max-width`):
 | `applyTheme(theme)` | Sets `data-theme` attribute on `<html>`, saves to `localStorage`, updates toggle button |
 | `toggleTheme()` | Switches between `light` and `dark` |
 | `listenForSystemChanges()` | Listens for `prefers-color-scheme` changes. Only applies if user has not made an explicit choice |
-| `updateToggleButtonText(theme)` | Updates icon (`🌙`/`☀️`) and label (`Dark`/`Light`) on the `.theme-toggle` button |
+| `updateToggleButtonText(theme)` | Updates the icon image (`.icon` `<img>`: `Images/MoonIcon.png` in light mode, `Images/SunIcon.png` in dark mode) and label (`Dark`/`Light`) on the `.theme-toggle` button |
 
 #### Storage Key
 
@@ -505,7 +545,7 @@ The `<model-viewer>` element from Google's Model Viewer library is used on the h
 | File | Type | Used In |
 |------|------|---------|
 | `Favicon.png` | PNG | Site favicon (`<link rel="icon">`) |
-| `hero-bg.jpg` | JPG | Hero section background on all 3 pages (`background-image`) |
+| `hero-bg.jpg` | JPG | Hero section background on all 5 pages (`background-image`) |
 | `Logo.jpeg` | JPEG | Placeholder for team member avatars and client logos |
 | `LogoText.png` | PNG | Header logo image |
 
@@ -688,6 +728,7 @@ flowchart TD
         B[about.html<br/>About]
         C[scans.html<br/>3D Scans]
         D[contact.html<br/>Contact]
+        M[mural.html<br/>Murals]
     end
 
     subgraph Shared["Shared Resources"]
@@ -706,26 +747,32 @@ flowchart TD
     B --> E
     C --> E
     D --> E
+    M --> E
     A --> F
     B --> F
     C --> F
     D --> F
+    M --> F
     A --> J
     B --> J
     C --> J
     D --> J
+    M --> J
     A --> G
     B --> G
     C --> G
     D --> G
+    M --> G
     A --> H
     C --> H
     A --> I
     C --> I
+    A -->|What We Do: Custom Murals point| M
+    M -->|CTA: Get a Quote| D
 
     subgraph Header["Shared Header Component"]
         H1[Logo Image]
-        H2[Nav Links: Home, About, Scans, Contact]
+        H2[Nav Links: Home, About, 3D Imaging, Murals, Contact]
         H3[Theme Toggle]
     end
 
@@ -741,6 +788,7 @@ flowchart TD
     H2 -.-> B
     H2 -.-> C
     H2 -.-> D
+    H2 -.-> M
     H3 -.-> F
 ```
 
@@ -775,6 +823,7 @@ flowchart TD
 | `content-row` | `.content-row` | Side-by-side image and text layout |
 | `content-row.reverse` | `.content-row.reverse` | Reversed content row (image right) |
 | `content-image` | `.content-image` | Image column in content rows |
+| `content-image-placeholder` | `.content-image-placeholder` | Custom Murals row gradient placeholder tile (matches `.mural-tile` aesthetic) |
 | `content-text` | `.content-text` | Text column in content rows |
 | `partner-showcase` | `.partner-showcase` | Centered layout for partner company logo and description |
 | `iris-logo` | `<img>` | Base class for IRIS logo images |
@@ -783,6 +832,14 @@ flowchart TD
 | `footer-grid` | `.footer-grid` | 3-column grid layout for footer content columns |
 | `footer-column` | `.footer-column` | Individual footer column with title and content |
 | `footer-bottom` | `.footer-bottom` | Footer copyright bar with top border separator |
+| `mural-gallery` | `.mural-gallery` | Auto-fit grid for the mural gallery placeholder tiles |
+| `mural-tile` | `.mural-tile` | Placeholder mural tile (fixed 220px height, hover lift) |
+| `mural-tile-1` | `.mural-tile-1` | Placeholder gradient variant (orange → purple) |
+| `mural-tile-2` | `.mural-tile-2` | Placeholder gradient variant (blue → teal) |
+| `mural-tile-3` | `.mural-tile-3` | Placeholder gradient variant (red → orange) |
+| `mural-tile-4` | `.mural-tile-4` | Placeholder gradient variant (purple → slate) |
+| `mural-tile-5` | `.mural-tile-5` | Placeholder gradient variant (teal → blue) |
+| `mural-tile-6` | `.mural-tile-6` | Placeholder gradient variant (yellow → orange) |
 
 ---
 
