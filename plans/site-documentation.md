@@ -187,11 +187,27 @@ TryjaxWebsite/
 </header>
 ```
 
-- Flexbox layout with logo left, nav right
+- Flexbox layout with logo left, nav right on desktop (>768px); on mobile (≤768px) the header wraps so the nav drops to its own full-width row below the logo (see "Mobile header wrapping" below)
 - Logo is an `<img>` inside an `<a>` link
-- Nav items are flex-aligned with full-height hover backgrounds (order: Home, About, 3D Imaging, Murals, Contact)
+- Nav items are flex-aligned with full-height hover backgrounds on desktop (order: Home, About, 3D Imaging, Murals, Contact)
 - Theme toggle button is the last nav item
 - The toggle icon is an `<img class="icon">` (`Images/MoonIcon.png` in light mode, `Images/SunIcon.png` in dark mode), swapped by `theme.js`
+
+#### Mobile header wrapping (≤768px)
+
+On mobile (320–768px) the logo sits on row 1 and all 5 nav links + the theme toggle sit on row 2, centered; below ~490px the row 2 links wrap to two centered lines. Nothing is clipped. Desktop (>768px) is unchanged, and theming is unaffected — the fix uses only flex/width/padding properties, no colors.
+
+The rules live in a dedicated `@media (max-width: 768px)` block in [`style.css`](style.css:883) (lines ~883–912, immediately after the mobile theme-toggle block at [`style.css`](style.css:872)):
+
+| Selector | Mobile properties |
+|----------|-------------------|
+| `header .container` | `flex-wrap: wrap`, `height: auto`, `padding: 12px 0`, `row-gap: 8px` — lets the nav drop to its own full-width row below the logo |
+| `header nav` | `width: 100%`, `height: auto` |
+| `header nav ul` | `flex-wrap: wrap`, `justify-content: center` |
+| `header nav ul li` | `height: auto` |
+| `header nav ul li a` | `margin: 4px 0`, `padding: 10px 14px` (comfortable tap targets) |
+
+**Root cause of the bug this fixes:** the non-wrapping flex nav (intrinsic width ~581px) plus the logo (~202px) overflowed the 80%-width `.container` (which has `overflow: hidden`) on narrow viewports (widths below ~979px), clipping the last nav link and the theme toggle at the right edge. The wrapping rules let the header break into two rows, so the nav no longer overflows the container.
 
 ### 3.2 Footer (All Pages)
 
@@ -409,6 +425,11 @@ Single breakpoint at **768px** (`max-width`):
 
 | Element | Mobile Change |
 |---------|--------------|
+| `header .container` | Wraps to two rows: `flex-wrap: wrap`, `height: auto`, `padding: 12px 0`, `row-gap: 8px` — logo on row 1, nav drops to its own full-width row 2 (see Section 3.1) |
+| `header nav` | `width: 100%`, `height: auto` |
+| `header nav ul` | `flex-wrap: wrap`, `justify-content: center` (row 2 links wrap to two centered lines below ~490px) |
+| `header nav ul li` | `height: auto` (hover background covers the link padding, not the full row) |
+| `header nav ul li a` | `margin: 4px 0`, `padding: 10px 14px` (comfortable tap targets) |
 | `model-viewer` | Height reduced from `500px` to `400px` |
 | `.form-row` | Single column (`grid-template-columns: 1fr`) |
 | `.form-container` | Reduced padding from `40px` to `25px` |
