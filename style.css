@@ -1009,6 +1009,7 @@ footer .container {
     align-items: center;
     justify-content: center;
     padding: 10px;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1022,6 +1023,20 @@ footer .container {
 .mural-tile:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-card-hover);
+}
+
+/* Real photos inside tiles: fill the tile completely without overflowing.
+   Applies to any <img> placed inside a .mural-tile — no inline styles needed. */
+.mural-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Photos span the full 220px tile (no padding ring); placeholder <span> labels keep the 10px inset */
+.mural-tile:has(img) {
+    padding: 0;
 }
 
 /* Distinct placeholder gradients — semi-transparent so they read in both themes */

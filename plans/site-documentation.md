@@ -24,7 +24,7 @@ TryjaxWebsite/
 ├── index.html          # Home page (hero, 3D model viewer, alternating content rows, partners carousel)
 ├── about.html          # About page (hero, team grid, clients grid)
 ├── scans.html          # 3D Scans page (hero, 3D model viewer, benefits, partner showcase, process steps)
-├── mural.html          # Murals page (hero, feature cards, placeholder gallery, CTA)
+├── mural.html          # Murals page (hero, feature cards, 6-photo mural gallery, CTA)
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
@@ -141,7 +141,7 @@ TryjaxWebsite/
 | 1 | Header | `<header>` | Same shared header, including the "Murals" nav link |
 | 2 | Hero | `#home.hero` | Page title "Custom Murals" with subtitle "Full turnkey wall graphics for commercial spaces — designed, printed, and installed by Tryjax." No CTA button (matches the `about.html` / `scans.html` heroes). Uses the same `hero-bg.jpg` background |
 | 3 | Key Selling Points | `#features.section.bg-light` | Heading "Why Choose Tryjax Murals" with three `.service-card` items in a `.services-grid` (card copy below) |
-| 4 | Mural Gallery | `#gallery.section` | Heading "Mural Gallery" + inline-styled centered subtitle ("A selection of our work. Full installation photography is coming soon."). Six placeholder tiles (`.mural-tile mural-tile-1` … `.mural-tile-6`) in a `.mural-gallery` grid — each is a gradient `<div>` with a centered italic `<span>` label "Mural Photo Coming Soon" |
+| 4 | Mural Gallery | `#gallery.section` | Heading "Mural Gallery" + inline-styled centered subtitle ("A selection of our work. Full installation photography is coming soon."). Six tiles (`.mural-tile mural-tile-1` … `.mural-tile-6`) in a `.mural-gallery` grid. All six tiles hold real photos: `<img src="Images/Mural_1.JPG">` in `.mural-tile-1`, `<img src="Images/Mural_2.JPG">` in `.mural-tile-2`, and `<img src="Images/Mural_3.webp">` through `<img src="Images/Mural_6.webp">` in `.mural-tile-3` … `.mural-tile-6` (all with meaningful alt text and `loading="lazy"`) — constrained by the `.mural-tile img` CSS rule (`display: block; width: 100%; height: 100%; object-fit: cover;`). No placeholder tiles remain in the gallery |
 | 5 | CTA | `#cta.section.bg-light` | Centered H2 "Ready to Bring Your Walls to Life?", paragraph, and a `.btn` "Get a Quote" linking to `contact.html` |
 | 6 | Footer | `<footer>` | Same shared multi-column footer, including the "Murals" nav link |
 
@@ -156,7 +156,8 @@ TryjaxWebsite/
 **Special Notes:**
 - This page does **not** load the `model-viewer` ES module (same as `about.html` / `contact.html`)
 - Loads `theme.js` in `<head>` and `hours.js` at the bottom of `<body>`, like every other page
-- Gallery tiles are CSS gradient placeholders — no real mural photos exist yet (no image assets were created). To swap in real photos, replace each `<div class="mural-tile mural-tile-N"><span>…</span></div>` with an `<img src="Images/mural-N.jpg" alt="...">` and add a `.mural-gallery img` rule — or keep the tile `<div>` and place the `<img>` inside it at `width: 100%; height: 100%; object-fit: cover;`. No other structural change is needed
+- All six gallery tiles use real photos — tiles 1–2: `Images/Mural_1.JPG` / `Images/Mural_2.JPG`; tiles 3–6: `Images/Mural_3.webp` through `Images/Mural_6.webp`. No placeholder tiles remain in the gallery. `Images/Mural_7.webp` and `Images/Mural_8.webp` exist in `Images/` as spares for future additions
+- To swap in more real photos (e.g., the spare `Mural_7.webp` / `Mural_8.webp`), keep the tile `<div>` and place an `<img src="Images/…" alt="meaningful description" loading="lazy">` inside it. The `.mural-tile img` rule in `style.css` constrains any such image (`display: block; width: 100%; height: 100%; object-fit: cover;`) and `.mural-tile` uses `overflow: hidden` + `padding: 0` when it contains an `img` (via `:has(img)`) — no inline styles needed. No other structural change is required
 
 ---
 
@@ -400,7 +401,8 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.footer-column` | Individual footer column | Contains `<h3>` title + content (nav list, contact info, or hours) |
 | `.footer-bottom` | Footer copyright bar | Top border separator, centered text |
 | `.mural-gallery` | Mural gallery grid | `display: grid`, `grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))`, `gap: 20px` — auto-reflows at the `768px` breakpoint, no dedicated media query |
-| `.mural-tile` | Placeholder mural gallery tile | Fixed `height: 220px`, `border-radius: 8px`, `box-shadow: var(--shadow-card)`, centered flex label, hover lift (`translateY(-5px)` + `var(--shadow-card-hover)`) |
+| `.mural-tile` | Mural gallery tile | Fixed `height: 220px`, `border-radius: 8px`, `box-shadow: var(--shadow-card)`, `overflow: hidden`, centered flex label, hover lift (`translateY(-5px)` + `var(--shadow-card-hover)`) |
+| `.mural-tile img` | Photo inside a mural tile | `display: block; width: 100%; height: 100%; object-fit: cover;` — fills the 220px tile without overflowing (applies to any `<img>` in a tile). `.mural-tile:has(img)` drops the tile's 10px padding so photos span edge-to-edge |
 
 ### 4.4 Component Classes
 
@@ -569,6 +571,14 @@ The `<model-viewer>` element from Google's Model Viewer library is used on the h
 | `hero-bg.jpg` | JPG | Hero section background on all 5 pages (`background-image`) |
 | `Logo.jpeg` | JPEG | Placeholder for team member avatars and client logos |
 | `LogoText.png` | PNG | Header logo image |
+| `Mural_1.JPG` | JPG | Mural gallery tile 1 (`.mural-tile-1`) on `mural.html` |
+| `Mural_2.JPG` | JPG | Mural gallery tile 2 (`.mural-tile-2`) on `mural.html` |
+| `Mural_3.webp` | WebP | Mural gallery tile 3 (`.mural-tile-3`) on `mural.html` |
+| `Mural_4.webp` | WebP | Mural gallery tile 4 (`.mural-tile-4`) on `mural.html` |
+| `Mural_5.webp` | WebP | Mural gallery tile 5 (`.mural-tile-5`) on `mural.html` |
+| `Mural_6.webp` | WebP | Mural gallery tile 6 (`.mural-tile-6`) on `mural.html` |
+| `Mural_7.webp` | WebP | Spare — not currently used (reserved for future gallery additions) |
+| `Mural_8.webp` | WebP | Spare — not currently used (reserved for future gallery additions) |
 
 ### 7.2 3D Models (`Models/`)
 
@@ -853,14 +863,15 @@ flowchart TD
 | `footer-grid` | `.footer-grid` | 3-column grid layout for footer content columns |
 | `footer-column` | `.footer-column` | Individual footer column with title and content |
 | `footer-bottom` | `.footer-bottom` | Footer copyright bar with top border separator |
-| `mural-gallery` | `.mural-gallery` | Auto-fit grid for the mural gallery placeholder tiles |
-| `mural-tile` | `.mural-tile` | Placeholder mural tile (fixed 220px height, hover lift) |
-| `mural-tile-1` | `.mural-tile-1` | Placeholder gradient variant (orange → purple) |
-| `mural-tile-2` | `.mural-tile-2` | Placeholder gradient variant (blue → teal) |
-| `mural-tile-3` | `.mural-tile-3` | Placeholder gradient variant (red → orange) |
-| `mural-tile-4` | `.mural-tile-4` | Placeholder gradient variant (purple → slate) |
-| `mural-tile-5` | `.mural-tile-5` | Placeholder gradient variant (teal → blue) |
-| `mural-tile-6` | `.mural-tile-6` | Placeholder gradient variant (yellow → orange) |
+| `mural-gallery` | `.mural-gallery` | Auto-fit grid for the mural gallery photo tiles |
+| `mural-tile` | `.mural-tile` | Mural gallery tile (fixed 220px height, `overflow: hidden`, hover lift) |
+| `mural-tile img` | `.mural-tile img` | Constrains any photo inside a mural tile: `display: block; width: 100%; height: 100%; object-fit: cover;` |
+| `mural-tile-1` | `.mural-tile-1` | Gallery tile 1 — holds `Images/Mural_1.JPG` (per-tile gradient variant still defined in CSS) |
+| `mural-tile-2` | `.mural-tile-2` | Gallery tile 2 — holds `Images/Mural_2.JPG` (per-tile gradient variant still defined in CSS) |
+| `mural-tile-3` | `.mural-tile-3` | Gallery tile 3 — holds `Images/Mural_3.webp` (per-tile gradient variant still defined in CSS) |
+| `mural-tile-4` | `.mural-tile-4` | Gallery tile 4 — holds `Images/Mural_4.webp` (per-tile gradient variant still defined in CSS) |
+| `mural-tile-5` | `.mural-tile-5` | Gallery tile 5 — holds `Images/Mural_5.webp` (per-tile gradient variant still defined in CSS) |
+| `mural-tile-6` | `.mural-tile-6` | Gallery tile 6 — holds `Images/Mural_6.webp` (per-tile gradient variant still defined in CSS) |
 
 ---
 
