@@ -1084,3 +1084,57 @@ footer .container {
         height: 250px;
     }
 }
+
+
+
+.google-form-card {
+  width: min(100%, 820px);
+  margin-inline: auto;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(31, 41, 51, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 20px 55px rgba(31, 41, 51, 0.12);
+}
+
+.google-form-card iframe {
+  display: block;
+  width: 100%;
+  min-height: 1500px;
+  border: 0;
+  background: #ffffff;
+}
+
+.contact-form-fallback {
+  margin: 1rem auto 0;
+  color: #52606d;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.contact-form-fallback a {
+  color: #9b5a10;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .contact-form-section {
+    padding-inline: 0;
+  }
+
+  .contact-form-intro,
+  .contact-form-fallback {
+    padding-inline: 1rem;
+  }
+
+  .google-form-card {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .google-form-card iframe {
+    min-height: 1500px;
+  }
+}
