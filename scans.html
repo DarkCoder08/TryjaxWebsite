@@ -3,9 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Scanning - Tryjax Construction</title>
+    <title>3D Scanning Services | Tryjax Construction</title>
+    <meta name="description" content="TryJax 3D scanning captures your space with centimeter precision, producing point clouds and digital models that fit franchise layouts into any space, faster.">
+    <link rel="canonical" href="https://www.tryjax.com/scans.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Tryjax Construction">
+    <meta property="og:title" content="3D Scanning Services | Tryjax Construction">
+    <meta property="og:description" content="TryJax 3D scanning captures your space with centimeter precision, producing point clouds and digital models that fit franchise layouts into any space, faster.">
+    <meta property="og:url" content="https://www.tryjax.com/scans.html">
+    <meta property="og:image" content="https://www.tryjax.com/Images/scanner.jpeg">
+    <meta property="og:image:alt" content="On-site 3D scanning equipment used by Tryjax Construction">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="3D Scanning Services | Tryjax Construction">
+    <meta name="twitter:description" content="TryJax 3D scanning captures your space with centimeter precision, producing point clouds and digital models that fit franchise layouts into any space, faster.">
+    <meta name="twitter:image" content="https://www.tryjax.com/Images/scanner.jpeg">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="Images/Favicon.png">
+    <link rel="icon" type="image/png" href="Images/Favicon.png">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1a1a2e" media="(prefers-color-scheme: dark)">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.0/model-viewer.min.js"></script>
@@ -13,19 +26,51 @@
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "3d Scanning For Construction",
-  "provider": {
-    "@type": "Organization",
-    "name": "TryJax",
-    "url": "https://tryjax.com"
-  },
-  "areaServed": {
-    "@type": "Country",
-    "name": "United States"
-  },
-  "description": "TryJax provides 3d scanning services for franchise brands, franchisees, and multi-location operators.",
-  "serviceType": "3d Scanning For Construction"
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://www.tryjax.com/scans.html#service",
+      "name": "3D Scanning for Construction",
+      "serviceType": "3D Scanning for Construction",
+      "url": "https://www.tryjax.com/scans.html",
+      "description": "TryJax 3D scanning captures your space with centimeter precision, producing point clouds and digital models that fit franchise layouts into any space, faster.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Tryjax Construction",
+        "url": "https://www.tryjax.com/index.html"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.tryjax.com/scans.html#webpage",
+      "url": "https://www.tryjax.com/scans.html",
+      "name": "3D Scanning Services | Tryjax Construction",
+      "description": "TryJax 3D scanning captures your space with centimeter precision, producing point clouds and digital models that fit franchise layouts into any space, faster.",
+      "isPartOf": { "@id": "https://www.tryjax.com/#website" },
+      "about": { "@id": "https://www.tryjax.com/scans.html#service" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.tryjax.com/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "3D Scanning",
+          "item": "https://www.tryjax.com/scans.html"
+        }
+      ]
+    }
+  ]
 }
 </script>
 </head>
