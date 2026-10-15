@@ -1,0 +1,16 @@
+# Tryjax Construction
+
+Tryjax Construction is a nationwide commercial contractor delivering franchise build-outs, ground-up construction, renovations, 3D scanning, and custom murals for brands and multi-location businesses across 41 states.
+
+## Pages
+
+- Home (https://www.tryjax.com/index.html): Nationwide franchise build-outs, ground-up builds, renovations, 3D scanning, and custom murals across 41 states.
+- About (https://www.tryjax.com/about.html): Meet the team behind Tryjax Construction, a nationwide contractor for franchise and commercial projects.
+- 3D Scanning (https://www.tryjax.com/scans.html): 3D scanning that captures spaces with centimeter precision, producing digital models that fit franchise layouts into any space.
+- Custom Murals (https://www.tryjax.com/mural.html): Custom commercial murals designed, printed, and installed by one turnkey Tryjax team — fire-rated, any design or finish.
+- Contact (https://www.tryjax.com/contact.html): Get a quote on build-outs, renovations, 3D scanning, or murals; we respond to inquiries within 24 hours.
+
+## Business facts
+
+- Service area: United States (41 states)
+- Services: franchise build-out construction, ground-up commercial construction, renovation and remodeling, 3D scanning, custom murals
