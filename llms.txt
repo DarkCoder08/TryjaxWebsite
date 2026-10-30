@@ -4,13 +4,15 @@ Tryjax Construction is a nationwide commercial contractor delivering franchise b
 
 ## Pages
 
-- Home (https://www.tryjax.com/index.html): Nationwide franchise build-outs, ground-up builds, renovations, 3D scanning, and custom murals across 41 states.
-- About (https://www.tryjax.com/about.html): Meet the team behind Tryjax Construction, a nationwide contractor for franchise and commercial projects.
-- 3D Scanning (https://www.tryjax.com/scans.html): 3D scanning that captures spaces with centimeter precision, producing digital models that fit franchise layouts into any space.
-- Custom Murals (https://www.tryjax.com/mural.html): Custom commercial murals designed, printed, and installed by one turnkey Tryjax team — fire-rated, any design or finish.
-- Contact (https://www.tryjax.com/contact.html): Get a quote on build-outs, renovations, 3D scanning, or murals; we respond to inquiries within 24 hours.
+- Home (https://www.tryjax.com/index): Nationwide franchise build-outs, ground-up builds, renovations, 3D scanning, and custom murals across 41 states.
+- About (https://www.tryjax.com/about): Meet the team behind Tryjax Construction, a nationwide contractor for franchise and commercial projects.
+- Apartments & Hotels (https://www.tryjax.com/apartments-hotels): Apartment and hotel construction and renovation — multifamily new builds, apartment and hotel renovations, PIPs, and the Ready to Rent unit turn program.
+- Ready to Rent (https://www.tryjax.com/ready-to-rent): Standard apartment unit turns rent-ready in 5 business days with flat pricing from $1,750, one point of contact, and photos on every unit.
+- 3D Scanning (https://www.tryjax.com/scans): 3D scanning that captures spaces with centimeter precision, producing digital models that fit franchise layouts into any space.
+- Custom Murals (https://www.tryjax.com/mural): Custom commercial murals designed, printed, and installed by one turnkey Tryjax team — fire-rated, any design or finish.
+- Contact (https://www.tryjax.com/contact): Get a quote on build-outs, renovations, 3D scanning, or murals; we respond to inquiries within 24 hours.
 
 ## Business facts
 
 - Service area: United States (41 states)
-- Services: franchise build-out construction, ground-up commercial construction, renovation and remodeling, 3D scanning, custom murals
+- Services: franchise build-out construction, ground-up commercial construction, renovation and remodeling, 3D scanning, custom murals, multifamily and hotel construction and renovation, Ready to Rent apartment unit turns

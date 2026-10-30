@@ -1138,3 +1138,131 @@ footer .container {
     min-height: 1500px;
   }
 }
+
+/* ===== Apartments & Hotels / Ready to Rent page components ===== */
+
+/* Dark feature band — uses the header background so it reads in both themes */
+.rtr-band {
+    background: var(--bg-header);
+}
+
+.rtr-band h2,
+.rtr-band p,
+.rtr-band .checks {
+    color: var(--text-header);
+}
+
+.rtr-band .service-card {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-top: 4px solid var(--accent-primary);
+    box-shadow: var(--shadow-card);
+}
+
+.rtr-band .service-card p {
+    color: var(--text-secondary);
+}
+
+.eyebrow {
+    color: var(--accent-primary);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.price {
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin: 6px 0;
+    color: var(--text-primary);
+}
+
+.checks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 28px 0;
+    font-weight: 600;
+}
+
+.offer {
+    border: 2px dashed var(--accent-primary);
+    border-radius: 10px;
+    padding: 26px;
+    text-align: center;
+    margin-top: 28px;
+    background: var(--bg-primary);
+}
+
+.offer p {
+    color: var(--text-primary);
+}
+
+/* Flat pricing table (Ready to Rent) */
+.ptable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.ptable th,
+.ptable td {
+    padding: 14px;
+    border-bottom: 1px solid var(--border-primary);
+    text-align: left;
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+.ptable th {
+    background: var(--accent-primary);
+    color: var(--text-on-accent);
+}
+
+/* FAQ accordions (Ready to Rent) */
+.faq details {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 10px auto;
+    max-width: 760px;
+    box-shadow: var(--shadow-card);
+    text-align: left;
+}
+
+.faq summary {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+.faq details p {
+    color: var(--text-secondary);
+    margin-bottom: 0;
+}
+
+/* Ghost hero button (light outline, used on the dark hero image in both themes) */
+.btn-ghost {
+    background: transparent;
+    border: 2px solid var(--text-header);
+    color: var(--text-header);
+}
+
+.btn-ghost:hover {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--text-on-accent);
+}
+
+.hero .btn {
+    margin: 6px;
+}
+
+@media (max-width: 600px) {
+    .ptable th,
+    .ptable td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+}
