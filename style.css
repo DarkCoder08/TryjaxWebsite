@@ -1242,13 +1242,23 @@ footer .container {
     margin-bottom: 0;
 }
 
-/* Ghost hero button (light outline, used on the dark hero image in both themes) */
+/* Ghost button — theme-aware ink so it stays legible on light AND dark backgrounds.
+   Default uses --text-primary (dark ink in light mode, light ink in dark mode),
+   which works on light sections/cards and on dark cards in dark mode.
+   The hero override below keeps the classic white-on-dark look on the hero image. */
 .btn-ghost {
     background: transparent;
-    border: 2px solid var(--text-header);
+    border: 2px solid var(--text-primary);
+    color: var(--text-primary);
+}
+
+/* On the always-dark hero image, restore the white outline/text in both themes */
+.hero .btn-ghost {
+    border-color: var(--text-header);
     color: var(--text-header);
 }
 
+/* Placed after the hero override so the accent hover fill wins in both themes */
 .btn-ghost:hover {
     background: var(--accent-primary);
     border-color: var(--accent-primary);
