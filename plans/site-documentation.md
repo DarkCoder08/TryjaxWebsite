@@ -10,7 +10,7 @@
 |----------|-------|
 | **Site Name** | Tryjax Construction |
 | **Type** | Static multi-page website (no backend, no framework) |
-| **Pages** | 5 (`index.html`, `about.html`, `scans.html`, `mural.html`, `contact.html`) |
+| **Pages** | 7 (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`) |
 | **Stylesheet** | 1 shared file (`style.css`) |
 | **JavaScript** | 2 shared files (`theme.js`, `hours.js`) |
 | **External Dependencies** | Google Model Viewer (`model-viewer` v4.3.0) — loaded via CDN as ES module |
@@ -23,6 +23,8 @@
 TryjaxWebsite/
 ├── index.html          # Home page (hero, 3D model viewer, alternating content rows, partners carousel)
 ├── about.html          # About page (hero, team grid, clients grid)
+├── apartments-hotels.html # Apartments & Hotels page (hero, What We Build, Ready to Rent feature band, How It Works, team)
+├── ready-to-rent.html # Ready to Rent page (hero, flat pricing table, feature band, FAQ, team)
 ├── scans.html          # 3D Scans page (hero, 3D model viewer, benefits, partner showcase, process steps)
 ├── mural.html          # Murals page (hero, feature cards, 6-photo mural gallery, CTA)
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
@@ -45,6 +47,10 @@ TryjaxWebsite/
     ├── dark-mode-implementation-plan.md
     └── site-documentation.md       # This file
 ```
+
+### Known Inconsistencies
+
+- **Sample files:** `apartments-hotels-sample.html` and `ready-to-rent-sample.html` are superseded guidelines left in the repo root. They are not linked from any page, not listed in `sitemap.xml`, and are not part of the live site.
 
 ---
 
@@ -161,6 +167,52 @@ TryjaxWebsite/
 
 ---
 
+### 2.6 [`apartments-hotels.html`](apartments-hotels.html) — Apartments & Hotels Page
+
+**Title:** `Apartment & Hotel Construction and Renovation | Tryjax Construction`
+
+**Sections (top to bottom):**
+
+| # | Section | ID/Class | Description |
+|---|---------|----------|-------------|
+| 1 | Header | `<header>` | Same shared header (7 nav links) |
+| 2 | Hero | `#home.hero` | H1 "Apartment & Hotel Construction and Renovation", subtitle, and two CTAs: `.btn` "Get a Quote" (→ `contact`) and `.btn.btn-ghost` "See the Ready to Rent Program" (→ `ready-to-rent`) |
+| 3 | What We Build | `#services.section` | `.section-title` + `.services-grid` with four `.service-card` items: **Multifamily New Construction**, **Apartment Renovation**, **Hotel New Construction**, **Hotel Renovation & PIPs** |
+| 4 | Ready to Rent Program | `#rtr.section.rtr-band` | Dark feature band: `.eyebrow` "Featured Program", H2 "Ready to Rent Program", intro line, 3-card pricing grid (Standard Turn `from $1,750`, Heavy Turn `$5,950–$8,350`, Value-Add Renovation `$11,400–$16,200`), `.checks` grid (Flat pricing / One point of contact / Photos on every unit / 5-business-day standard turns), `.offer` pilot box with "Start a Pilot" mailto `.btn`, and a "Full Program Details" `.btn` (→ `ready-to-rent`) |
+| 5 | How It Works | `#process.section` | `.section-title` + `.services-grid` with four `.service-card` items: **1. Walk**, **2. Scope**, **3. Build**, **4. Hand Off** |
+| 6 | Team | `#team.section.bg-light` | Centered `.section-title` "Talk to Our Team" + `.services-grid` with three `.service-card` items (Chad Reeves — Owner, President & CEO; Trystan Reeves — Business Development; Andrew Goodwin — Sales & Estimating), each card with a `tel:` link + `mailto:` link; "Get a Quote" `.btn` (→ `contact`) |
+| 7 | Footer | `<footer>` | Same shared multi-column footer (7 nav links) |
+
+**Special Notes:**
+- JSON-LD `@graph`: `Service` (`#service`), `WebPage` (`#webpage`), `BreadcrumbList` (Home → Apartments & Hotels)
+- og:image / twitter:image is `Images/ApartmentBuildingTryjax.webp` (alt "Multifamily apartment building built by Tryjax Construction") — the only page that does not use the default `hero-bg.jpg` og image
+- Loads `theme.js` in `<head>` and `hours.js` before `</body>`; does not load `model-viewer`
+
+---
+
+### 2.7 [`ready-to-rent.html`](ready-to-rent.html) — Ready to Rent Page
+
+**Title:** `Ready to Rent Program | Apartment Unit Turns | Tryjax Construction`
+
+**Sections (top to bottom):**
+
+| # | Section | ID/Class | Description |
+|---|---------|----------|-------------|
+| 1 | Header | `<header>` | Same shared header (7 nav links) |
+| 2 | Hero | `#home.hero` | H1 "Ready to Rent Program", subtitle, and two CTAs: `.btn` "Start a Pilot" (mailto with prefilled subject) and `.btn.btn-ghost` "Call (941) 887-6997" (`tel:+19418876997`) |
+| 3 | Flat Pricing | `#pricing.section` | `.section-title` "Flat Pricing" + `.ptable` (columns: Package / 1 BR / 2 BR / 3 BR; rows: Standard Turn from $1,750 / $2,200 / $2,800, Heavy Turn `$5,950–$8,350` spanning all three BR columns, Value-Add Renovation `$11,400–$16,200` spanning all three BR columns) + note paragraph |
+| 4 | Why Property Teams Use It | `#why.section.rtr-band` | Dark feature band: H2 + `.services-grid` with four `.service-card` items (Flat Pricing, One Point of Contact, Photos on Every Unit, 5-Business-Day Turns) + the same `.offer` pilot box as `apartments-hotels.html` |
+| 5 | FAQ | `#faq.section` | `.section-title` + `.faq` with four `<details>/<summary>` accordions (5-business-day clock start, pilot details, Heavy Turn / Value-Add escalation, how to get started — last item links to `contact`) |
+| 6 | Team | `#team.section.bg-light` | Identical to `apartments-hotels.html` "Talk to Our Team" section (same 3 cards, same "Get a Quote" `.btn`) |
+| 7 | Footer | `<footer>` | Same shared multi-column footer (7 nav links) |
+
+**Special Notes:**
+- JSON-LD `@graph`: `Service` (`#service`), `WebPage` (`#webpage`), `BreadcrumbList` (Home → Ready to Rent)
+- og:image / twitter:image is the default `Images/hero-bg.jpg`
+- Loads `theme.js` in `<head>` and `hours.js` before `</body>`; does not load `model-viewer`
+
+---
+
 ## 3. Shared Components
 
 ### 3.1 Header (All Pages)
@@ -168,14 +220,16 @@ TryjaxWebsite/
 ```html
 <header>
     <div class="container">
-        <a href="index.html" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
+        <a href="index" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="scans.html">3D Imaging</a></li>
-                <li><a href="mural.html">Murals</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="index">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="apartments-hotels">Apartments &amp; Hotels</a></li>
+                <li><a href="ready-to-rent">Ready to Rent</a></li>
+                <li><a href="scans">3D Imaging</a></li>
+                <li><a href="mural">Murals</a></li>
+                <li><a href="contact">Contact</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle dark mode">
                         <img class="icon" src="Images/MoonIcon.png" alt="">
@@ -190,7 +244,7 @@ TryjaxWebsite/
 
 - Flexbox layout with logo left, nav right on desktop (>768px); on mobile (≤768px) the header wraps so the nav drops to its own full-width row below the logo (see "Mobile header wrapping" below)
 - Logo is an `<img>` inside an `<a>` link
-- Nav items are flex-aligned with full-height hover backgrounds on desktop (order: Home, About, 3D Imaging, Murals, Contact)
+- Nav items are flex-aligned with full-height hover backgrounds on desktop (order: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Contact)
 - Theme toggle button is the last nav item
 - The toggle icon is an `<img class="icon">` (`Images/MoonIcon.png` in light mode, `Images/SunIcon.png` in dark mode), swapped by `theme.js`
 
@@ -219,11 +273,13 @@ The rules live in a dedicated `@media (max-width: 768px)` block in [`style.css`]
             <div class="footer-column">
                 <h3>Navigation</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="scans.html">3D Imaging</a></li>
-                    <li><a href="mural.html">Murals</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index">Home</a></li>
+                    <li><a href="about">About</a></li>
+                    <li><a href="apartments-hotels">Apartments &amp; Hotels</a></li>
+                    <li><a href="ready-to-rent">Ready to Rent</a></li>
+                    <li><a href="scans">3D Imaging</a></li>
+                    <li><a href="mural">Murals</a></li>
+                    <li><a href="contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -289,7 +345,7 @@ The `#home::before` pseudo-element renders a localized radial-gradient "halo" th
 
 - **Mobile:** In the `@media (max-width: 768px)` block, the ellipse widens to `ellipse 120% 120% at center` with the same gradient stops so the taller wrapping text block stays covered.
 - **Tuning knobs:** `--hero-halo` (center intensity per theme), the ellipse dimensions (`75% 60%` desktop, `120% 120%` mobile), and the gradient stops (`0%` center, `40%` mid, `75%` transparent).
-- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `scans.html`, `mural.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
+- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
 
 **Tuning note:** The first gradient pass (center `0.55`/`0.6` → `0.3` → transparent) was structurally correct but perceptually too faint over the bright image; the center stops were raised to `0.72`/`0.78` and the mid stop to `0.4`.
 
@@ -318,6 +374,7 @@ Single stylesheet for the entire site. No CSS preprocessor or module bundling.
 13. Alternating Image-Text content rows
 14. Responsive media queries (interspersed near relevant sections)
 15. Mural gallery (`.mural-gallery`, `.mural-tile`, `.mural-tile-1` … `.mural-tile-6` — appended at the end of the file)
+16. Apartments & Hotels / Ready to Rent components (`.rtr-band`, `.eyebrow`, `.price`, `.checks`, `.offer`, `.ptable`, `.faq details` / `.faq summary`, `.btn-ghost`, `.hero .btn` — appended at the end of the file)
 
 ### 4.2 CSS Custom Properties (Theming System)
 
@@ -420,6 +477,16 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.iris-logo-light` | `<img>` | IRIS logo visible in light mode (`display: block`), hidden in dark mode |
 | `.iris-logo-dark` | `<img>` | IRIS logo visible in dark mode (`display: block`), hidden in light mode |
 | `.section-title` | `<h2>` | Extra bottom margin (`60px`) for section headings |
+| `.rtr-band` | `<section>` | Dark feature band using the header background (`var(--bg-header)`) with header-colored text; inner `.service-card` elements are re-themed to page background. Used on `apartments-hotels.html` (`#rtr`) and `ready-to-rent.html` (`#why`) |
+| `.eyebrow` | `<p>` | Uppercase, letter-spaced, accent-colored label above a section heading (e.g., "Featured Program") |
+| `.price` | `<div>` | Large bold price line inside `.service-card` on the Apartments & Hotels / Ready to Rent pages |
+| `.checks` | `<div>` | Auto-fit grid of check-mark items summarizing program guarantees |
+| `.offer` | `<div>` | Dashed-border centered box for the Ready to Rent pilot offer (paragraph + `.btn`) |
+| `.ptable` | `<table>` | Flat pricing table on `ready-to-rent.html`: accent header row, card-background cells; compact padding/font at ≤600px |
+| `.faq details` | `<details>` | FAQ accordion item: card background, border, rounded corners, centered `max-width: 760px` |
+| `.faq summary` | `<summary>` | Bold, clickable FAQ question |
+| `.btn-ghost` | `<a>` | Transparent ghost button with a light outline for the dark hero image; fills with accent on hover |
+| `.hero .btn` | `.hero .btn` | Horizontal margin between side-by-side hero CTA buttons |
 
 ### 4.5 Responsive Design
 
@@ -568,7 +635,8 @@ The `<model-viewer>` element from Google's Model Viewer library is used on the h
 | File | Type | Used In |
 |------|------|---------|
 | `Favicon.png` | PNG | Site favicon (`<link rel="icon">`) |
-| `hero-bg.jpg` | JPG | Hero section background on all 5 pages (`background-image`) |
+| `hero-bg.jpg` | JPG | Hero section background on all 7 pages (`background-image`); default og:image / twitter:image on all pages except `apartments-hotels.html` |
+| `ApartmentBuildingTryjax.webp` | WebP | og:image / twitter:image on `apartments-hotels.html`; "National Development" and "Apartments" content-row images on `index.html` |
 | `Logo.jpeg` | JPEG | Placeholder for team member avatars and client logos |
 | `LogoText.png` | PNG | Header logo image |
 | `Mural_1.JPG` | JPG | Mural gallery tile 1 (`.mural-tile-1`) on `mural.html` |
@@ -757,6 +825,8 @@ flowchart TD
     subgraph Pages["Pages"]
         A[index.html<br/>Home]
         B[about.html<br/>About]
+        P[apartments-hotels.html<br/>Apartments & Hotels]
+        R[ready-to-rent.html<br/>Ready to Rent]
         C[scans.html<br/>3D Scans]
         D[contact.html<br/>Contact]
         M[mural.html<br/>Murals]
@@ -776,16 +846,22 @@ flowchart TD
 
     A --> E
     B --> E
+    P --> E
+    R --> E
     C --> E
     D --> E
     M --> E
     A --> F
     B --> F
+    P --> F
+    R --> F
     C --> F
     D --> F
     M --> F
     A --> J
     B --> J
+    P --> J
+    R --> J
     C --> J
     D --> J
     M --> J
@@ -800,10 +876,13 @@ flowchart TD
     C --> I
     A -->|What We Do: Custom Murals point| M
     M -->|CTA: Get a Quote| D
+    P -->|Featured Program band| R
+    P -->|Get a Quote CTA| D
+    R -->|Get a Quote CTA| D
 
     subgraph Header["Shared Header Component"]
         H1[Logo Image]
-        H2[Nav Links: Home, About, 3D Imaging, Murals, Contact]
+        H2[Nav Links: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Contact]
         H3[Theme Toggle]
     end
 
@@ -817,6 +896,8 @@ flowchart TD
     H1 -.-> G
     H2 -.-> A
     H2 -.-> B
+    H2 -.-> P
+    H2 -.-> R
     H2 -.-> C
     H2 -.-> D
     H2 -.-> M
@@ -834,6 +915,16 @@ flowchart TD
 | `section` | `.section` | Generic section with vertical padding |
 | `bg-light` | `.bg-light` | Alternating background color |
 | `section-title` | `.section-title` | Section heading with extra bottom margin |
+| `rtr-band` | `.rtr-band` | Dark feature band (header background + header-colored text) for the Ready to Rent program sections |
+| `eyebrow` | `.eyebrow` | Uppercase accent eyebrow label above section headings |
+| `price` | `.price` | Large bold price display inside service cards |
+| `checks` | `.checks` | Auto-fit grid of check-mark program highlights |
+| `offer` | `.offer` | Dashed-border pilot-offer box (paragraph + button) |
+| `ptable` | `.ptable` | Flat pricing table (Ready to Rent) |
+| `faq details` | `.faq details` | FAQ accordion item (card-styled `<details>`) |
+| `faq summary` | `.faq summary` | Bold FAQ question (`<summary>`) |
+| `btn-ghost` | `.btn-ghost` | Ghost (outline) hero button; accent fill on hover |
+| `hero .btn` | `.hero .btn` | Margins between side-by-side hero buttons |
 | `btn` | `.btn` | Primary accent button |
 | `submit-btn` | `.submit-btn` | Full-width submit button variant |
 | `services-grid` | `.services-grid` | Auto-fit grid for service cards |
