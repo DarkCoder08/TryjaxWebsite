@@ -10,7 +10,7 @@
 |----------|-------|
 | **Site Name** | Tryjax Construction |
 | **Type** | Static multi-page website (no backend, no framework) |
-| **Pages** | 7 (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`) |
+| **Pages** | 8 (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`, `careers.html`) |
 | **Stylesheet** | 1 shared file (`style.css`) |
 | **JavaScript** | 2 shared files (`theme.js`, `hours.js`) |
 | **External Dependencies** | Google Model Viewer (`model-viewer` v4.3.0) — loaded via CDN as ES module |
@@ -28,6 +28,7 @@ TryjaxWebsite/
 ├── scans.html          # 3D Scans page (hero, 3D model viewer, benefits, partner showcase, process steps)
 ├── mural.html          # Murals page (hero, feature cards, 6-photo mural gallery, CTA)
 ├── contact.html        # Contact page (hero, contact info cards, contact form)
+├── careers.html        # Careers page (hero, why TryJax, hiring focus, opportunities, values, how to apply, work samples, trade partner, CTA)
 ├── style.css           # Shared stylesheet (all styles, theming, responsive)
 ├── theme.js            # Theme manager (dark mode toggle, persistence, system detection)
 ├── hours.js            # Timezone-aware business hours converter (all pages)
@@ -213,6 +214,39 @@ TryjaxWebsite/
 
 ---
 
+### 2.8 [`careers.html`](careers.html) — Careers Page
+
+**Title:** `Careers at TryJax Construction | Construction Jobs`
+
+**Purpose:** Static recruiting/marketing page. Job listings and applications are hosted and managed by a third-party platform (e.g., Indeed). The page never collects, stores, or uploads application data.
+
+**Sections (top to bottom):**
+
+| # | Section | ID/Class | Description |
+|---|---------|----------|-------------|
+| 1 | Skip Link | `.skip-link` | Keyboard "Skip to main content" link, visually hidden until focused |
+| 2 | Header | `<header>` | Shared header including the "Careers" nav link and a prominent external "View Open Positions" `.header-jobs-btn` placed just before the theme toggle |
+| 3 | Hero | `#home.hero` | `.hero-eyebrow` "Careers at TryJax", H1 "Build great projects with great people.", intro copy, primary `.btn` "View Current Openings" (external) + `.btn.btn-ghost` "Learn About TryJax" (→ `#why-tryjax`), `.hero-note` external-hosting disclosure |
+| 4 | Why Work with TryJax? | `#why-tryjax.section` | Four `.service-card` items in a `.services-grid`: Nationwide Project Experience (41 states), Varied Construction Work, Quality and Professionalism, Opportunities for Experienced Professionals |
+| 5 | Current Hiring Focus | `#hiring-focus.section.bg-light` | `.section-intro` line + `.checks` grid of six common hiring areas + `.notice` box (a role is open only when listed on the job-listing page) + `.notice.pay-notice` carpenter pay range ($40–$65/hr, explicitly scoped to carpenter openings only) + `.btn` "See Active Job Listings" (external) |
+| 6 | Local and Traveling Opportunities | `#opportunities.section` | Two `.service-card` items: Local Opportunities (Tampa, Bradenton, Parrish, Sarasota, Florida Gulf Coast) and Traveling Opportunities (nationwide; travel terms explained per listing) |
+| 7 | What We Value | `#values.section.bg-light` | Six `.checks` items (attendance, safety, craftsmanship, communication, conduct, detail) + supporting paragraph |
+| 8 | How to Apply | `#how-to-apply.section` | Four-step `.steps` ordered list + `.notice` third-party platform disclosure |
+| 9 | Work Samples and Qualifications | `#work-samples.section.bg-light` | Work-sample/reference guidance + `.notice` safety warning (do not send SSN, banking info, or identity documents by ordinary email) |
+| 10 | Trade Partner | `#trade-partner.section` | Separate subcontractor route, distinct from employee applications. `.btn.btn-ghost` "Submit a Trade Partner Inquiry" — currently a `mailto:info@tryjax.com?subject=Trade%20Partner%20Inquiry` placeholder; replace with a dedicated external form when one exists |
+| 11 | Final CTA | `#cta.section.rtr-band` | H2 "Ready to See Where You Fit?", copy, primary `.btn` "View Current Openings" (external) + `.btn.btn-ghost` "Explore TryJax Projects" (→ `apartments-hotels`) |
+| 12 | Footer | `<footer>` | Shared multi-column footer with the "Careers" nav link; copyright reads "TryJax Construction LLC" |
+
+**Special Notes:**
+- JSON-LD `@graph`: `AboutPage` (`#webpage`) + `BreadcrumbList` (Home → Careers). No `JobPosting` structured data — job details live on the external platform, which owns the job-specific markup
+- **External job-listing URL:** every "View Current Openings" / job-platform link (header button, hero, hiring focus, final CTA) currently points to `https://www.indeed.com/` as a placeholder. When the official Indeed employer-page URL is approved, update all four links to the same destination (spec: one central external URL, same destination site-wide)
+- `data-track` attributes on external links feed an inline analytics stub that console-logs `career_jobs_link_click` (`hero-view-openings`, `hiring-focus-jobs-link`, `bottom-view-openings`) and `career_trade_partner_click`. Swap the stub for a real analytics provider's event calls when one is configured; recommended properties: link destination, button location, page URL, referral source, campaign params
+- No featured individual job listings are duplicated on the page (spec 5.2: only if maintained weekly)
+- Talent-network section intentionally omitted (optional section 4.10; no external form exists yet)
+- Loads `theme.js` in `<head>` and `hours.js` before `</body>`; does not load `model-viewer`
+
+---
+
 ## 3. Shared Components
 
 ### 3.1 Header (All Pages)
@@ -229,6 +263,7 @@ TryjaxWebsite/
                 <li><a href="ready-to-rent">Ready to Rent</a></li>
                 <li><a href="scans">3D Imaging</a></li>
                 <li><a href="mural">Murals</a></li>
+                <li><a href="careers">Careers</a></li>
                 <li><a href="contact">Contact</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle dark mode">
@@ -244,7 +279,8 @@ TryjaxWebsite/
 
 - Flexbox layout with logo left, nav right on desktop (>768px); on mobile (≤768px) the header wraps so the nav drops to its own full-width row below the logo (see "Mobile header wrapping" below)
 - Logo is an `<img>` inside an `<a>` link
-- Nav items are flex-aligned with full-height hover backgrounds on desktop (order: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Contact)
+- Nav items are flex-aligned with full-height hover backgrounds on desktop (order: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Careers, Contact)
+- The careers page (`careers.html`) additionally inserts a "View Open Positions" external button (`.header-jobs-btn`, styled as an orange pill) as the nav item just before the theme toggle. This is the only page-specific header addition; all other pages share the exact header above
 - Theme toggle button is the last nav item
 - The toggle icon is an `<img class="icon">` (`Images/MoonIcon.png` in light mode, `Images/SunIcon.png` in dark mode), swapped by `theme.js`
 
@@ -279,6 +315,7 @@ The rules live in a dedicated `@media (max-width: 768px)` block in [`style.css`]
                     <li><a href="ready-to-rent">Ready to Rent</a></li>
                     <li><a href="scans">3D Imaging</a></li>
                     <li><a href="mural">Murals</a></li>
+                    <li><a href="careers">Careers</a></li>
                     <li><a href="contact">Contact</a></li>
                 </ul>
             </div>
@@ -345,7 +382,7 @@ The `#home::before` pseudo-element renders a localized radial-gradient "halo" th
 
 - **Mobile:** In the `@media (max-width: 768px)` block, the ellipse widens to `ellipse 120% 120% at center` with the same gradient stops so the taller wrapping text block stays covered.
 - **Tuning knobs:** `--hero-halo` (center intensity per theme), the ellipse dimensions (`75% 60%` desktop, `120% 120%` mobile), and the gradient stops (`0%` center, `40%` mid, `75%` transparent).
-- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
+- **Scope:** Applies site-wide to every page sharing `#home` (`index.html`, `about.html`, `apartments-hotels.html`, `ready-to-rent.html`, `scans.html`, `mural.html`, `contact.html`, `careers.html`). The former flat-overlay variable `--hero-overlay` is no longer used by any rule; it is intentionally left in place for this documentation and the dark-mode plan.
 
 **Tuning note:** The first gradient pass (center `0.55`/`0.6` → `0.3` → transparent) was structurally correct but perceptually too faint over the bright image; the center stops were raised to `0.72`/`0.78` and the mid stop to `0.4`.
 
@@ -375,6 +412,7 @@ Single stylesheet for the entire site. No CSS preprocessor or module bundling.
 14. Responsive media queries (interspersed near relevant sections)
 15. Mural gallery (`.mural-gallery`, `.mural-tile`, `.mural-tile-1` … `.mural-tile-6` — appended at the end of the file)
 16. Apartments & Hotels / Ready to Rent components (`.rtr-band`, `.eyebrow`, `.price`, `.checks`, `.offer`, `.ptable`, `.faq details` / `.faq summary`, `.btn-ghost`, `.hero .btn` — appended at the end of the file)
+17. Careers page components (`.skip-link`, `a:focus`/`button:focus` indicators, `.header-jobs-btn`, `.hero-eyebrow`, `.hero-note`, `.section-intro`, `.notice` / `.pay-notice`, `.steps` — appended at the end of the file)
 
 ### 4.2 CSS Custom Properties (Theming System)
 
@@ -487,6 +525,13 @@ All colors are managed through CSS custom properties defined on `:root` (light t
 | `.faq summary` | `<summary>` | Bold, clickable FAQ question |
 | `.btn-ghost` | `<a>` | Transparent ghost button with a light outline for the dark hero image; fills with accent on hover |
 | `.hero .btn` | `.hero .btn` | Horizontal margin between side-by-side hero CTA buttons |
+| `.skip-link` | `<a>` | Keyboard skip-to-content link; visually hidden until focused (careers page) |
+| `.header-jobs-btn` | `<a>` | Prominent external "View Open Positions" button inside the shared header nav (careers page) |
+| `.hero-eyebrow` | `<p>` | Hero eyebrow label variant with extra spacing above the H1 (careers page) |
+| `.hero-note` | `<p>` | Small external-hosting disclosure note below the hero CTAs (careers page) |
+| `.section-intro` | `<p>` | Centered, max-width intro paragraph used across careers sections |
+| `.notice` | `<div>` | Left-accent-bordered disclosure box (`.pay-notice` variant uses a muted border); used for role-availability, third-party platform, and safety notices |
+| `.steps` | `<ol>` | Numbered application-steps list: card items with accent `<h3>` headings (careers page) |
 
 ### 4.5 Responsive Design
 
@@ -830,6 +875,7 @@ flowchart TD
         C[scans.html<br/>3D Scans]
         D[contact.html<br/>Contact]
         M[mural.html<br/>Murals]
+        K[careers.html<br/>Careers]
     end
 
     subgraph Shared["Shared Resources"]
@@ -879,10 +925,15 @@ flowchart TD
     P -->|Featured Program band| R
     P -->|Get a Quote CTA| D
     R -->|Get a Quote CTA| D
+    K --> E
+    K --> F
+    K --> J
+    K -->|Final CTA: Explore TryJax Projects| P
+    K -->|External: View Current Openings| IN[Indeed (external job platform)]
 
     subgraph Header["Shared Header Component"]
         H1[Logo Image]
-        H2[Nav Links: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Contact]
+        H2[Nav Links: Home, About, Apartments & Hotels, Ready to Rent, 3D Imaging, Murals, Careers, Contact]
         H3[Theme Toggle]
     end
 
@@ -899,9 +950,6 @@ flowchart TD
     H2 -.-> P
     H2 -.-> R
     H2 -.-> C
-    H2 -.-> D
-    H2 -.-> M
-    H3 -.-> F
 ```
 
 ---
@@ -925,6 +973,13 @@ flowchart TD
 | `faq summary` | `.faq summary` | Bold FAQ question (`<summary>`) |
 | `btn-ghost` | `.btn-ghost` | Ghost (outline) hero button; accent fill on hover |
 | `hero .btn` | `.hero .btn` | Margins between side-by-side hero buttons |
+| `.skip-link` | `.skip-link` | Keyboard skip-to-content link; visually hidden until focused |
+| `.header-jobs-btn` | `.header-jobs-btn` | External "View Open Positions" header button (careers page) |
+| `.hero-eyebrow` | `.hero-eyebrow` | Hero eyebrow label variant (careers page) |
+| `.hero-note` | `.hero-note` | External-hosting note below hero CTAs (careers page) |
+| `.section-intro` | `.section-intro` | Centered max-width section intro paragraph |
+| `.notice` | `.notice` | Left-bordered disclosure box; `.pay-notice` variant for pay-range notice |
+| `.steps` | `.steps` | Numbered application-steps list (careers page) |
 | `btn` | `.btn` | Primary accent button |
 | `submit-btn` | `.submit-btn` | Full-width submit button variant |
 | `services-grid` | `.services-grid` | Auto-fit grid for service cards |

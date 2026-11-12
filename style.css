@@ -1288,3 +1288,140 @@ footer .container {
         font-size: 14px;
     }
 }
+
+/* ===== Careers page components ===== */
+
+/* Skip link — visually hidden until keyboard-focused (accessibility) */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--accent-primary);
+    color: var(--text-on-accent);
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.skip-link:focus {
+    left: 12px;
+    top: 12px;
+}
+
+/* Visible keyboard focus indicator (accessibility requirement) */
+a:focus,
+button:focus {
+    outline: 3px solid var(--accent-primary);
+    outline-offset: 3px;
+}
+
+.hero a:focus {
+    outline-color: #ffffff;
+}
+
+/* "View Open Positions" button in the shared header nav (careers page) */
+/* margin-left is inherited from the base header nav link rule;
+   no !important needed — the class selector outranks header nav element selectors */
+.header-jobs-btn {
+    background: var(--accent-primary);
+    color: var(--text-on-accent);
+    border-radius: 5px;
+    padding: 10px 16px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.header-jobs-btn:hover {
+    background: var(--accent-hover);
+}
+
+/* Hero additions: eyebrow above H1 and external-hosting note below CTAs */
+.hero-eyebrow {
+    margin-bottom: 14px;
+    font-size: 15px;
+    letter-spacing: 3px;
+}
+
+.hero-note {
+    margin-top: 18px;
+    font-size: 14px;
+    opacity: 0.85;
+    max-width: 560px;
+}
+
+/* Centered intro paragraph used by several careers sections */
+.section-intro {
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 30px;
+}
+
+/* Notice box — visible disclosures (role availability, third-party platform, safety) */
+.notice {
+    border-left: 4px solid var(--accent-primary);
+    background: var(--bg-card);
+    border-radius: 6px;
+    box-shadow: var(--shadow-card);
+    padding: 16px 20px;
+    max-width: 800px;
+    margin: 24px auto;
+    text-align: left;
+}
+
+.notice p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 15px;
+}
+
+.pay-notice {
+    border-left-color: var(--text-tertiary);
+}
+
+/* Numbered application steps */
+.steps {
+    list-style: none;
+    max-width: 800px;
+    margin: 0 auto 24px;
+    padding: 0;
+    text-align: left;
+}
+
+.steps li {
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    padding: 18px 22px;
+    margin-bottom: 14px;
+}
+
+.steps h3 {
+    color: var(--accent-primary);
+    margin-bottom: 6px;
+}
+
+.steps p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Center the CTA button in the hiring-focus section (its .bg-light text-align is left) */
+#hiring-focus .btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+}
+
+@media (max-width: 768px) {
+    .header-jobs-btn {
+        padding: 10px 14px;
+        font-size: 15px;
+    }
+
+    /* .bg-light sections are left-aligned; re-center on mobile to match the site's mobile pattern */
+    .section-intro {
+        text-align: center;
+    }
+}
