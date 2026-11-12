@@ -214,6 +214,20 @@ TryjaxWebsite/
 
 ---
 
+### 2.7.1 [`job-requirements.html`](job-requirements.html) — Job Requirements Downloads (TEMPORARY)
+
+**Title:** `Job Requirements - TryJax Construction`
+
+**Status:** Temporary page that exists only until the Indeed employer account is live. It is **not** linked from any page's navigation, **not** in `sitemap.xml`, and carries `<meta name="robots" content="noindex, follow">` so search engines will not index it. Delete the page and the `pdfs/` folder once Indeed is set up.
+
+**Purpose:** Hosts downloadable PDF requirements documents (in `pdfs/`) for the roles listed in the careers "Current hiring focus" section, so candidates have something to read while the job board is being set up.
+
+**Sections:** Shared header (no jobs button), hero ("Job Requirements" + "Back to Careers"), `#downloads` (five `.service-card` items, each with a `.btn` `download` link to a PDF in `pdfs/`), `#subcontractors` (one `.service-card` for trade-partner crews, separate from employee roles), `#notes` (two `.notice` boxes: temporary-materials + no-sensitive-data-by-email, third-party platform disclosure, "Visit the Careers Page" button), shared footer. No new CSS — uses existing components only.
+
+**PDF files** (`pdfs/`, see `pdfs/README.md`): `traveling-carpenter.pdf`, `gulf-coast-carpenter.pdf`, `framing-exterior-carpenter.pdf`, `finish-carpenter.pdf`, `carpenter-foreman.pdf`, `subcontractor-crews.pdf`. All are currently **placeholder documents** (marked "STATUS: PLACEHOLDER" inside) — replace with official TryJax requirements documents (same file name, or update the `href` in this page).
+
+---
+
 ### 2.8 [`careers.html`](careers.html) — Careers Page
 
 **Title:** `Careers at TryJax Construction | Construction Jobs`
