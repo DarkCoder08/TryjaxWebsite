@@ -1414,6 +1414,10 @@ button:focus {
     margin: 20px auto 0;
 }
 
+#cta{
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .header-jobs-btn {
         padding: 10px 14px;
