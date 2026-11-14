@@ -220,10 +220,10 @@ TryjaxWebsite/
 ```html
 <header>
     <div class="container">
-        <a href="index" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
+        <a href="/" class="logo"><img src="Images/LogoText.png" alt="TRYJAX"></a>
         <nav>
             <ul>
-                <li><a href="index">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="about">About</a></li>
                 <li><a href="apartments-hotels">Apartments &amp; Hotels</a></li>
                 <li><a href="ready-to-rent">Ready to Rent</a></li>
@@ -273,7 +273,7 @@ The rules live in a dedicated `@media (max-width: 768px)` block in [`style.css`]
             <div class="footer-column">
                 <h3>Navigation</h3>
                 <ul>
-                    <li><a href="index">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li><a href="about">About</a></li>
                     <li><a href="apartments-hotels">Apartments &amp; Hotels</a></li>
                     <li><a href="ready-to-rent">Ready to Rent</a></li>
