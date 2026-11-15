@@ -202,7 +202,7 @@ header nav ul li a:hover {
     right: 0;
     bottom: 0;
     background: radial-gradient(
-        ellipse 75% 60% at center,
+        ellipse 75% 75% at center,
         var(--hero-halo) 0%,
         rgba(0, 0, 0, 0.4) 40%,
         transparent 75%

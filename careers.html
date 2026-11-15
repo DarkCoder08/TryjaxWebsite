@@ -168,23 +168,14 @@
 
         
 
-        <!-- Work samples and qualifications -->
-        <section id="work-samples" class="section bg-light">
-            <div class="container">
-                <h2 class="section-title">Work Samples and Qualifications</h2>
-                <p class="section-intro">Depending on the position, qualified candidates may be asked to discuss recent projects, provide professional references, or show examples of completed work. Please submit materials only through the instructions in the official job listing or in response to direct communication from an authorized TryJax representative.</p>
-                <div class="notice" role="note">
-                    <p>For your safety: do not send Social Security numbers, banking information, identity documents, or other sensitive records through ordinary email.</p>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Trade partner -->
         <section id="trade-partner" class="section">
             <div class="container">
                 <h2 class="section-title">Interested in Working with TryJax as a Trade Partner?</h2>
                 <p class="section-intro">TryJax also works with qualified subcontractors and established trade crews. Trade-partner opportunities are separate from employee job applications and depend on project needs, location, qualifications, insurance, licensing, availability, and commercial terms.</p>
-                <a href="mailto:info@tryjax.com?subject=Trade%20Partner%20Inquiry" class="btn btn-ghost" data-track="trade-partner-inquiry">Submit a Trade Partner Inquiry</a>
+                <a href="contact" class="btn btn-ghost" data-track="trade-partner-inquiry">Submit a Trade Partner Inquiry</a>
             </div>
         </section>
 
@@ -217,7 +208,7 @@
 
                 <div class="footer-column">
                     <h3>Contact</h3>
-                    <p><a href="mailto:info@tryjax.com">info@tryjax.com</a></p>
+                    <p><a href="contact">Contact us</a></p>
                     <p>We respond within 24 hours</p>
                 </div>
 
@@ -235,40 +226,6 @@
         </div>
     </footer>
 
-    <!-- Analytics event placeholders.
-         The site has no analytics provider configured yet. When one is added (e.g.,
-         Google Analytics 4), replace each call below with the provider's event call,
-         e.g.: gtag('event', 'career_jobs_link_click', { link_destination, button_location, page_url, referral_source });
-         Event names (page_view fires automatically on load):
-         - career_jobs_link_click   button_location: hero-view-openings | hiring-focus-jobs-link | bottom-view-openings
-         - career_trade_partner_click  (trade-partner-inquiry)
-         Recommended properties: link destination (href), button location (data-track), page URL,
-         referral source, and campaign (utm_*) parameters when present. -->
-    <script>
-    (function () {
-        'use strict';
-        var events = {
-            'hero-view-openings': 'career_jobs_link_click',
-            'hiring-focus-jobs-link': 'career_jobs_link_click',
-            'bottom-view-openings': 'career_jobs_link_click',
-            'trade-partner-inquiry': 'career_trade_partner_click'
-        };
-        document.addEventListener('click', function (e) {
-            var link = e.target.closest ? e.target.closest('a[data-track]') : null;
-            if (!link) return;
-            var key = link.getAttribute('data-track');
-            var eventName = events[key];
-            if (!eventName) return;
-            if (typeof window.console === 'object' && typeof window.console.log === 'function') {
-                window.console.log('analytics:event', eventName, {
-                    link_destination: link.href,
-                    button_location: key,
-                    page_url: window.location.href
-                });
-            }
-        });
-    })();
-    </script>
     <script src="hours.js"></script>
 </body>
 </html>

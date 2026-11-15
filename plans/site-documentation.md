@@ -335,7 +335,7 @@ The rules live in a dedicated `@media (max-width: 768px)` block in [`style.css`]
             </div>
             <div class="footer-column">
                 <h3>Contact</h3>
-                <p><a href="mailto:info@tryjax.com">info@tryjax.com</a></p>
+                <p><a href="contact">Contact us</a></p>
                 <p>We respond within 24 hours</p>
             </div>
             <div class="footer-column">
